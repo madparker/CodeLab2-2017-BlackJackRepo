@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HR_BlackJackHand : BlackJackHand {
+public class HR_BlackJackManager : BlackJackManager {
 
 	// Use this for initialization
 	void Start () {

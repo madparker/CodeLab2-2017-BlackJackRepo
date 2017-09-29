@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HR_DealerHand : MonoBehaviour {
+public class HR_DealerHand : DealerHand {
 
 	// Use this for initialization
 	void Start () {
