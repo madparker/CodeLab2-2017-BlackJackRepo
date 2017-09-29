@@ -10,14 +10,14 @@ public class DeckOfCards : MonoBehaviour {
 	public Sprite[] cardSuits;
 
 	public class Card{
-
+		//Four suits
 		public enum Suit {
 			SPADES, 	//0
 			CLUBS,		//1
 			DIAMONDS,	//2
 			HEARTS	 	//3
 		};
-
+		//Card Types
 		public enum Type {
 			TWO		= 2,
 			THREE	= 3,
@@ -37,7 +37,7 @@ public class DeckOfCards : MonoBehaviour {
 		public Type cardNum;
 		
 		public Suit suit;
-
+		//Card has two value: suit and number
 		public Card(Type cardNum, Suit suit){
 			this.cardNum = cardNum;
 			this.suit = suit;
@@ -48,6 +48,7 @@ public class DeckOfCards : MonoBehaviour {
 		}
 
 		public int GetCardHighValue(){
+			
 			int val;
 
 			switch(cardNum){
