@@ -36,8 +36,19 @@ public class DealerHand : BlackJackHand {
 				if(handVals > 21){
 					manager.DealerBusted();
 				} else if(!DealStay(handVals)){
+					Debug.Log("Hand is less than 17! DEALER NEEDS A HIT!");
 					Invoke("HitMe", 1);
-				} else {
+				} else if (DealStay(handVals)){
+					Debug.Log("17 and up. DEALER SHOULD STAY");
+					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
+
+					if(handVals < playerHand.handVals){
+						manager.PlayerWin();
+					} else {
+						manager.PlayerLose();
+					}
+				}
+				else {
 					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
 
 					if(handVals < playerHand.handVals){
@@ -51,7 +62,15 @@ public class DealerHand : BlackJackHand {
 	}
 
 	protected virtual bool DealStay(int handVal){
-		return handVal > 17;
+		bool dealStay = false;
+		if(handVal <= 17){
+			dealStay = false;	// return false;
+		}
+		if(handVal >= 17){
+			dealStay = true;			// return true;
+		}	
+		return dealStay; 
+		// return handVal > 17;
 	}
 
 	public void RevealCard(){
