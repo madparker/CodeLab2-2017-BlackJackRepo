@@ -36,11 +36,9 @@ public class DealerHand : BlackJackHand {
 				if(handVals > 21){
 					manager.DealerBusted();
 				} else if(!DealStay(handVals)){
-					Debug.Log("Hand is less than 17! DEALER NEEDS A HIT!");
-					Invoke("HitMe", 1);
+ 					Invoke("HitMe", 1);
 				} else if (DealStay(handVals)){
-					Debug.Log("17 and up. DEALER SHOULD STAY");
-					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
+ 					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
 
 					if(handVals < playerHand.handVals){
 						manager.PlayerWin();
