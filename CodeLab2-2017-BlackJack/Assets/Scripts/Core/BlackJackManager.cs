@@ -58,9 +58,10 @@ public class BlackJackManager : MonoBehaviour {
 			if(handCard.cardNum == DeckOfCards.Card.Type.A){
 				if(handValue + handCard.GetCardHighValue() >= 17 && handValue + handCard.GetCardHighValue() <= 21){
 					handValue += handCard.GetCardHighValue();
-				}
-				else if(handValue + handCard.GetCardHighValue() > 21){
+				} else if(handValue + handCard.GetCardHighValue() > 21){
 					handValue += handCard.GetCardLowValue();
+				} else if (handValue + handCard.GetCardHighValue() < 17){
+					handValue += handCard.GetCardHighValue();
 				} 
 			} else {
 				handValue += handCard.GetCardHighValue();

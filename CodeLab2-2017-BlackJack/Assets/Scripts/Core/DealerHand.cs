@@ -35,10 +35,9 @@ public class DealerHand : BlackJackHand {
 
 				if(handVals > 21){
 					manager.DealerBusted();
-				} else if (handVals == 21 && hand.Count == 2){
+				} else if (handVals == 21){
 					manager.PlayerLose();
-				}
-				else if(!DealStay(handVals)){
+				} else if(!DealStay(handVals)){
  					Invoke("HitMe", 1);
 				} else if (DealStay(handVals)){
 						
