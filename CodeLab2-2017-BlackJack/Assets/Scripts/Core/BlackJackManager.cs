@@ -53,19 +53,15 @@ public class BlackJackManager : MonoBehaviour {
 		int handValue = 0;
 
 		foreach(DeckOfCards.Card handCard in hand){
-			//1. get a card.
-			//2. check if it's an Ace. 
-			//3. if it's an Ace, check if handVal is > 21. 
-			//4. if handVal > 21, GetCardLowValue() for the Ace.
+		
 
 			if(handCard.cardNum == DeckOfCards.Card.Type.A){
-				if(handValue + handCard.GetCardHighValue() > 21){
-					handValue += handCard.GetCardLowValue();
-					//problem is this only works on the card that has just come out.
-					//does not work retroactively.  
-				} else if(handValue + handCard.GetCardHighValue() == 21){
+				if(handValue + handCard.GetCardHighValue() >= 17 && handValue + handCard.GetCardHighValue() <= 21){
 					handValue += handCard.GetCardHighValue();
 				}
+				else if(handValue + handCard.GetCardHighValue() > 21){
+					handValue += handCard.GetCardLowValue();
+				} 
 			} else {
 				handValue += handCard.GetCardHighValue();
 			}

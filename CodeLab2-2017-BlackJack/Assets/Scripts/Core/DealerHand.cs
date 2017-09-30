@@ -22,11 +22,11 @@ public class DealerHand : BlackJackHand {
 	protected override void ShowValue(){
 
 		if(hand.Count > 1){
-			if(!reveal){
+			if(!reveal){ //dealer's second card has not been revealed
 				handVals = hand[1].GetCardHighValue();
 
 				total.text = "Dealer: " + handVals + " + ???";
-			} else {
+			} else { //if dealer's second card HAS been revealed.
 				handVals = GetHandValue();
 
 				total.text = "Dealer: " + handVals;
@@ -35,9 +35,13 @@ public class DealerHand : BlackJackHand {
 
 				if(handVals > 21){
 					manager.DealerBusted();
-				} else if(!DealStay(handVals)){
+				} else if (handVals == 21 && hand.Count == 2){
+					manager.PlayerLose();
+				}
+				else if(!DealStay(handVals)){
  					Invoke("HitMe", 1);
 				} else if (DealStay(handVals)){
+						
  					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
 
 					if(handVals < playerHand.handVals){
@@ -56,16 +60,25 @@ public class DealerHand : BlackJackHand {
 					}
 				}
 			}
-		}
+		} 
 	}
 
 	protected virtual bool DealStay(int handVal){
+		//problem here is, if player stays at a value below 17, say, 16, the dealer will keep asking for hits until it reaches 17,
+		//despite victory being assured already.
 		bool dealStay = false;
-		if(handVal <= 17){
-			dealStay = false;	// return false;
+		BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
+
+		if(handVal <= 17){//first check if dealer hand is less than 17.
+			//if true, then check if dealer has not already won.
+			if(handVal >= playerHand.handVals){ //if dealer has already won, despite being less than 17, stay.
+				dealStay = true;	
+			} else { 
+				dealStay = false;	
+			}
 		}
 		if(handVal >= 17){
-			dealStay = true;			// return true;
+			dealStay = true;			// as long as hand is >= 17, ALWAYS STAY.
 		}	
 		return dealStay; 
 		// return handVal > 17;
