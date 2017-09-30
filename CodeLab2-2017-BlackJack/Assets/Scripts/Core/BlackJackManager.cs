@@ -55,6 +55,28 @@ public class BlackJackManager : MonoBehaviour {
 		foreach(DeckOfCards.Card handCard in hand){
 			handValue += handCard.GetCardHighValue();
 		}
+
+        //if we've found the handValue and it's over 21
+        //then we want to make sure it's not because of an Ace
+        //so we turn handValue back to 0
+        //and run it again, but if the card is an Ace
+        //we only add 1 to the handvalue
+        //else, do nothing
+        if(handValue > 21)
+        {
+            handValue = 0;
+            foreach (DeckOfCards.Card handCard in hand)
+            {
+                if(handCard.cardNum == DeckOfCards.Card.Type.A)
+                {
+                    handValue += 1;
+                }
+                else
+                {
+                    handValue += handCard.GetCardHighValue();
+                }
+            }
+        }
 		return handValue;
 	}
 }
