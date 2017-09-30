@@ -21,12 +21,18 @@ namespace Chrs
         {
             if(deck != null)
             {
+                //  BUG     : Game does not reset when decck has less than 20 cards
+                //  CATEGORY: GAME RULES
+                //  STATUS  : PENDING REVIEW
                 return deck.Count > MIN_NUM_CARDS;
             }
 
             return deck != null;
         }
 
+        //  BUG     : Deck does not decrement after each Hit
+        //  CATEGORY: GAME RULES
+        //  STATUS  : PENDING REVIEW
         public override Card DrawCard()
         {
             Card nextCard = deck.Next();

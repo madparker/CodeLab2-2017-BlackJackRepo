@@ -6,6 +6,14 @@ namespace Chrs
 {
     public class ChrsBlackJackManager : BlackJackManager
     {
+        //  BUG     : Ace value does not change when advantageous
+        //  CATEGORY: GAME RULES
+        //  STATUS  : PENDING REVIEW
+
+        //  BUG     : On suboptimal plays Ace reassigning decrements score
+        //  CATEGORY: GAME RULES
+        //  STATUS  : OPEN
+
         //  This solution is not a complete one. If a player were to play
         //  sub-optimally this fix will break down.
         //
