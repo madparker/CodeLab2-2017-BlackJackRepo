@@ -26,6 +26,17 @@ public class BlackJackHand : MonoBehaviour {
 		hand = new List<DeckOfCards.Card>();
 		HitMe();
 		HitMe();
+        //we want to check if it's a natural blackjack at setup
+        //but only if we're not the dealer
+        if(this.gameObject.tag != "Dealer")
+        {
+            handVals = GetHandValue();
+            if (handVals == 21)
+            {
+                BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+                manager.BlackJack();
+            }
+        }
 	}
 	
 	// Update is called once per frame
