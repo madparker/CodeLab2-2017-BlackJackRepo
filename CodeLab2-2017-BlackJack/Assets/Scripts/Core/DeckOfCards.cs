@@ -8,14 +8,17 @@ public class DeckOfCards : MonoBehaviour {
 	public Text cardNumUI;
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
-
+    
+    //inner class. a class inside the deckOfCards script
+    //to refer to it, you have to say "DeckOfCards.Card"
+    //purely for architecture and logic
 	public class Card{
 
 		public enum Suit {
 			SPADES, 	//0
-			CLUBS,		//1
-			DIAMONDS,	//2
-			HEARTS	 	//3
+            HEARTS,     //1
+            DIAMONDS,   //2
+            CLUBS       //3
 		};
 
 		public enum Type {
@@ -51,6 +54,7 @@ public class DeckOfCards : MonoBehaviour {
 			int val;
 
 			switch(cardNum){
+                //change this here so that the A can be 11 or 1
 			case Type.A:
 				val = 11;
 				break;
@@ -73,7 +77,10 @@ public class DeckOfCards : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-		if(!IsValidDeck()){
+//Game uses 4 decks to make “card counting” difficult.Deck is reused until it contains less than
+//20 cards, then reshuffled.
+
+        if (!IsValidDeck()){
 			deck = new ShuffleBag<Card>();
 
 			AddCardsToDeck();
@@ -86,6 +93,7 @@ public class DeckOfCards : MonoBehaviour {
 		return deck != null; 
 	}
 
+    //problem with this
 	protected virtual void AddCardsToDeck(){
 		foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
 			foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){

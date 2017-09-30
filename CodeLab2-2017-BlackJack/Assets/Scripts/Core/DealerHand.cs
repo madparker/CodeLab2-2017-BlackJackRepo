@@ -50,8 +50,9 @@ public class DealerHand : BlackJackHand {
 		}
 	}
 
+    //this is a problem area for stopping the dealer from getting more cards
 	protected virtual bool DealStay(int handVal){
-		return handVal > 17;
+		return handVal >= 17;
 	}
 
 	public void RevealCard(){
