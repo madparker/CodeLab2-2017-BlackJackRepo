@@ -54,6 +54,15 @@ public class BlackJackManager : MonoBehaviour {
 
 		foreach(DeckOfCards.Card handCard in hand){
 			handValue += handCard.GetCardHighValue();
+
+		}
+
+		if (handValue > 21) {
+			handValue = 0;
+			foreach(DeckOfCards.Card handCard in hand){
+				handValue += handCard.GetCardLowValue();
+
+			}
 		}
 		return handValue;
 	}

@@ -9,6 +9,8 @@ public class DeckOfCards : MonoBehaviour {
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
 
+
+	//Inner Class
 	public class Card{
 
 		public enum Suit {
@@ -53,6 +55,26 @@ public class DeckOfCards : MonoBehaviour {
 			switch(cardNum){
 			case Type.A:
 				val = 11;
+				break;
+			case Type.K:
+			case Type.Q:
+			case Type.J:
+				val = 10;
+				break;	
+			default:
+				val = (int)cardNum;
+				break;
+			}
+
+			return val;
+		}
+
+		public int GetCardLowValue(){
+			int val;
+
+			switch(cardNum){
+			case Type.A:
+				val = 1;
 				break;
 			case Type.K:
 			case Type.Q:
