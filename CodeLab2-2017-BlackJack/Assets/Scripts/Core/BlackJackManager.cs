@@ -63,6 +63,8 @@ public class BlackJackManager : MonoBehaviour {
 					handValue += handCard.GetCardLowValue();
 					//problem is this only works on the card that has just come out.
 					//does not work retroactively.  
+				} else if(handValue + handCard.GetCardHighValue() == 21){
+					handValue += handCard.GetCardHighValue();
 				}
 			} else {
 				handValue += handCard.GetCardHighValue();

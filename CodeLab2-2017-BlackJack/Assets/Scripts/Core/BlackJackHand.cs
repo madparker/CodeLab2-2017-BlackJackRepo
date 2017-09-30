@@ -67,6 +67,10 @@ public class BlackJackHand : MonoBehaviour {
 
 		if(handVals > 21){
 			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().PlayerBusted();
+		} 
+		//check if handVals == 21 AND number of cards in hand is 2. only way this can happen is with face and Ace.
+		else if (handVals == 21 && hand.Count == 2){
+			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().BlackJack();
 		}
 	}
 
