@@ -9,12 +9,48 @@ namespace Chrs
         private const int TOTAL_DECKS_USED  = 4;
         private const int MIN_NUM_CARDS     = 20;
 
+        
+        public class BlackJackCard : DeckOfCards.Card
+        {
+            public BlackJackCard(Type cardNum, Suit suit) : base(cardNum, suit)
+            {
+            }
+
+            public int GetCardLowValue()
+            {
+                int val;
+
+                switch (cardNum)
+                {
+                    case Type.A:
+                        val = 1;
+                        break;
+                    case Type.K:
+                    case Type.Q:
+                    case Type.J:
+                        val = 10;
+                        break;
+                    default:
+                        val = (int)cardNum;
+                        break;
+                }
+
+                return val;
+            }
+        }
+
         protected override void AddCardsToDeck()
         {
            for (int i = 0; i < TOTAL_DECKS_USED; i++)
            {
-                base.AddCardsToDeck();
-           }
+                foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit)))
+                {
+                    foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type)))
+                    {
+                        deck.Add(new BlackJackCard(type, suit));
+                    }
+                }
+            }
         }
 
         protected override bool IsValidDeck()
@@ -35,7 +71,7 @@ namespace Chrs
         //  STATUS  : PENDING REVIEW
         public override Card DrawCard()
         {
-            Card nextCard = deck.Next();
+            BlackJackCard nextCard = (BlackJackCard)deck.Next();
             deck.Remove(nextCard);
             return nextCard;
         }
