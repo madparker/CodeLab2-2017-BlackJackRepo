@@ -86,20 +86,26 @@ public class DeckOfCards : MonoBehaviour {
 			AddCardsToDeck();
 		}
 
-		Debug.Log("Cards in Deck: " + deck.Count);
+        Debug.Log("Cards in Deck: " + deck.Count);
 	}
 
 	protected virtual bool IsValidDeck(){
 		return deck != null; 
 	}
 
-    //problem with this
+    //the game should be playe with 4 decks,
+    //so we run this 4 times.
 	protected virtual void AddCardsToDeck(){
-		foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
-			foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
-				deck.Add(new Card(type, suit));
-			}
-		}
+        for (int i = 0; i < 4; i++)
+        {
+            foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit)))
+            {
+                foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type)))
+                {
+                    deck.Add(new Card(type, suit));
+                }
+            }
+        }
 	}
 	
 	// Update is called once per frame
