@@ -16,16 +16,22 @@ public class BlackJackHand : MonoBehaviour {
 	protected List<DeckOfCards.Card> hand;
 	bool stay = false;
 
+	protected BlackJackManager BJM;
+
 	// Use this for initialization
 	void Start () {
 		SetupHand();
+		BJM = GetComponent<BlackJackManager>();
 	}
 
 	protected virtual void SetupHand(){
 		deck = GameObject.Find("Deck").GetComponent<DeckOfCards>();
 		hand = new List<DeckOfCards.Card>();
+		HitMe(); //adds one card
 		HitMe();
-		HitMe();
+		if(BJM.GetHandValue(hand) == 21){
+			BJM.PlayerWin();
+		}
 	}
 	
 	// Update is called once per frame

@@ -52,7 +52,7 @@ public class DeckOfCards : MonoBehaviour {
 
 			switch(cardNum){
 			case Type.A:
-				val = 11;
+				val = 11; 
 				break;
 			case Type.K:
 			case Type.Q:
