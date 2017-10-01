@@ -8,6 +8,7 @@ public class DeckOfCards : MonoBehaviour {
 	public Text cardNumUI;
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
+    public static int cardsDrawn;
     
     //inner class. a class inside the deckOfCards script
     //to refer to it, you have to say "DeckOfCards.Card"
@@ -72,21 +73,43 @@ public class DeckOfCards : MonoBehaviour {
 		}
 	}
 
-	public static ShuffleBag<Card> deck;
+    public static ShuffleBag<Card> deck;
+    public static DeckOfCards deckScript;
 
 	// Use this for initialization
 	void Awake () {
 
-//Game uses 4 decks to make “card counting” difficult.Deck is reused until it contains less than
-//20 cards, then reshuffled.
+        //if the deck does not exist
+        //make a new deck
+        //but we wanna make the deck a singleton
+        //if we don't, then every time we load a new scene, it's going to make a new shufflebag
+        //so we're not actually reusing the same deck, rather just making a new one every time
+        //so we make the canvas attached to the deck a singleton
+        //if the deck DOES exist, then on start, destroy the canvas
+        if (!IsValidDeck())
+        {
+            deck = new ShuffleBag<Card>();
+            DontDestroyOnLoad(transform.root.gameObject);
+            AddCardsToDeck();
+        }
+        else Destroy(gameObject);
 
-        if (!IsValidDeck()){
-			deck = new ShuffleBag<Card>();
-
-			AddCardsToDeck();
-		}
+        //if there are less than 20 cards left in the deck, reshuffle everything
+        //since the shuffleBag doesn't actually remove the card
+        //we have to keep track of how many cards are still left in the deck
+        //if we've drawn enough cards that there are less than 20, then make a new shufflebag
+        //because I don't know how to reset the cursor manually
+        //then reset cardsDrawn to 0 because the next deck hasn't been touched
+        if ((deck.Count - cardsDrawn) < 20)
+        {
+            deck = null;
+            deck = new ShuffleBag<Card>();
+            AddCardsToDeck();
+            cardsDrawn = 0;
+        }
 
         Debug.Log("Cards in Deck: " + deck.Count);
+        Debug.Log(cardsDrawn);
 	}
 
 	protected virtual bool IsValidDeck(){
@@ -110,11 +133,12 @@ public class DeckOfCards : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	}
+
+    }
 
 	public virtual Card DrawCard(){
 		Card nextCard = deck.Next();
-
+        cardsDrawn++;
 		return nextCard;
 	}
 
