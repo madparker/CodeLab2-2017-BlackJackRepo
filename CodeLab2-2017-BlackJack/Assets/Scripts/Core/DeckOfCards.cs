@@ -100,7 +100,6 @@ public class DeckOfCards : MonoBehaviour {
 
 	public virtual Card DrawCard(){
 		Card nextCard = deck.Next();
-
 		return nextCard;
 	}
 
