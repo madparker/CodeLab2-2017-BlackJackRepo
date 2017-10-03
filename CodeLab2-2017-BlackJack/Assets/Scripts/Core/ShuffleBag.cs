@@ -42,7 +42,7 @@ public class ShuffleBag<T> : ICollection<T>, IList<T>
 			Add (initalValues[i]);
 		}
 	}
-	public ShuffleBag() {} //Constructor with no values
+	public ShuffleBag() {} //Constructor with no values2
 	
 	#region IList[T] implementation
 	public int IndexOf (T item)
