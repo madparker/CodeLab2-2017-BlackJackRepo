@@ -16,8 +16,8 @@ namespace Hang{
 			if (GetHandValue() >= 17)
 				return true;
 
-			if (myPlayer.GetHandValue () <= GetHandValue ())
-				return true;
+//			if (myPlayer.GetHandValue () <= GetHandValue ())
+//				return true;
 
 			return false;
 		}
