@@ -28,11 +28,12 @@ public class ShuffleBag<T> : ICollection<T>, IList<T>
 				return default(T);
 			return data[0];
 		}
-		int grab = Mathf.FloorToInt (Random.value * (cursor + 1));
-		T temp = data[grab];
-		data[grab] = this.data[this.cursor];
-		data[cursor] = temp;
-		cursor--;
+		int grab = Mathf.FloorToInt (Random.value * (cursor + 1)); //grab a random number between 0 and the cursor
+		T temp = data[grab]; //temp = the content of the position you grabbed. Store grab inside temp. 
+		data[grab] = this.data[this.cursor]; //then take what's in cursor and put it inside the space from which we randomly grabbed an item
+		data[cursor] = temp; //temp goes into where the cursor is. Computer can't fundamentally swap. It can add and copy, and when it copies it overwrites. To swap things, you first have to move one somewhere else. 
+		//you want to swap people between floors with an elevator that only carries one person. 
+		cursor--; 
 		return temp;
 	}
 	

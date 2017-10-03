@@ -16,12 +16,12 @@ public class BlackJackHand : MonoBehaviour {
 	protected List<DeckOfCards.Card> hand;
 	bool stay = false;
 
-	protected BlackJackManager BJM;
+	//protected BlackJackManager BJM;
 
 	// Use this for initialization
 	void Start () {
 		SetupHand();
-		BJM = GetComponent<BlackJackManager>();
+		//BJM = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
 	}
 
 	protected virtual void SetupHand(){
@@ -29,8 +29,8 @@ public class BlackJackHand : MonoBehaviour {
 		hand = new List<DeckOfCards.Card>();
 		HitMe(); //adds one card
 		HitMe();
-		if(BJM.GetHandValue(hand) == 21){
-			BJM.PlayerWin();
+		if(GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().GetHandValue(hand) == 21){
+			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().PlayerWin();
 		}
 	}
 	

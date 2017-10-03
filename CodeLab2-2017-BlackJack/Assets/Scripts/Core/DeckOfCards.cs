@@ -63,12 +63,11 @@ public class DeckOfCards : MonoBehaviour {
 				val = (int)cardNum;
 				break;
 			}
-
 			return val;
 		}
 	}
 
-	public static ShuffleBag<Card> deck;
+	public static ShuffleBag<Card> deck; //deck defaults to null, so, if we assigned nothing to it, it's null
 
 	// Use this for initialization
 	void Awake () {
@@ -82,14 +81,29 @@ public class DeckOfCards : MonoBehaviour {
 		Debug.Log("Cards in Deck: " + deck.Count);
 	}
 
-	protected virtual bool IsValidDeck(){
-		return deck != null; 
+
+
+	// statement = sentance that says "do this", ends in a semicolon. ex: return true;
+	// expression =  sentance that evaluates to a value. ex: true or false, which evaluates to true
+	// return true or false = a statement which evaluates the value of true or false and returns it. In this case, true. 
+
+	protected virtual bool IsValidDeck(){ 
+		if (deck==null) {return false;} //if the deck doesn't exist, return false and create a new deck in Awake()
+		else {return deck.Count > 19;} //else, if the deck has more than 19 cards, return true and don't create a new deck. If it has less, create a new deck. 
+
+		//if deck is not greater than 20, return false. otherwise, return true.
+		//return = break from the function and pass whatever the right hand side evaluates to to where the function was called
+		//equal sign is inside a comparison operator because it is inside an expression
+
 	}
 
+	//now wrapped in a for loop that runs the code 4 times to add 4 of each to the deck
 	protected virtual void AddCardsToDeck(){
-		foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
-			foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
-				deck.Add(new Card(type, suit));
+		for (int i = 0; i < 4; i++) {
+			foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
+				foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
+					deck.Add(new Card(type, suit));
+				}
 			}
 		}
 	}
@@ -100,7 +114,7 @@ public class DeckOfCards : MonoBehaviour {
 
 	public virtual Card DrawCard(){
 		Card nextCard = deck.Next();
-
+		//deck.RemoveAt(nextCard);
 		return nextCard;
 	}
 
