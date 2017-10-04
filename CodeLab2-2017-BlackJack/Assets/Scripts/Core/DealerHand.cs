@@ -47,7 +47,7 @@ public class DealerHand : BlackJackHand {
 					manager.DealerBusted();
 				} 
 				//if dealer stay, get one more card
-				else if(!DealStay(handVals)){
+				else if(DealStay(handVals)){
 					Invoke("HitMe", 1);
 
 				} 
@@ -69,7 +69,18 @@ public class DealerHand : BlackJackHand {
 	}
 
 	protected virtual bool DealStay(int handVal){
-		return handVal > 17;
+
+		BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
+		//if dealer hand <17, dealer have to stay 
+		if (handVal < 17) {
+			return true;
+		}
+		//if dealer hand > 17 and >= player hand, dealer don't need to hit more, dealer win
+		else if (handVal >= playerHand.handVals) {
+			return false;
+		} else
+			return true;
+
 	}
 
 	//this function will be called if player hit 'stay' button, show the first card
