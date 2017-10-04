@@ -42,11 +42,11 @@ public class DeckOfCards : MonoBehaviour {
 			this.cardNum = cardNum;
 			this.suit = suit;
 		}
-
+		//Why do we need this?
 		public override string ToString(){
 			return "The " + cardNum + " of " + suit;
 		}
-
+		//get the highest value of the card?
 		public int GetCardHighValue(){
 			
 			int val;
@@ -68,25 +68,27 @@ public class DeckOfCards : MonoBehaviour {
 			return val;
 		}
 	}
-
+	//false randomness
 	public static ShuffleBag<Card> deck;
 
 	// Use this for initialization
 	void Awake () {
 
 		if(!IsValidDeck()){
+			
 			deck = new ShuffleBag<Card>();
 
 			AddCardsToDeck();
 		}
 
-		Debug.Log("Cards in Deck: " + deck.Count);
+		//Debug.Log("Cards in Deck: " + deck.Count);
 	}
 
 	protected virtual bool IsValidDeck(){
 		return deck != null; 
 	}
 
+	//add 13 * 4 = 52 cards into deck
 	protected virtual void AddCardsToDeck(){
 		foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
 			foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
@@ -94,12 +96,10 @@ public class DeckOfCards : MonoBehaviour {
 			}
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
+	//draw new card from the deck
 	public virtual Card DrawCard(){
+		
 		Card nextCard = deck.Next();
 
 		return nextCard;

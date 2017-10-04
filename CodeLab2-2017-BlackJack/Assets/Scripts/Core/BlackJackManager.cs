@@ -10,6 +10,7 @@ public class BlackJackManager : MonoBehaviour {
 	public GameObject tryAgain;
 	public string loadScene;
 
+	//Hide Hit and Stay button when player busted
 	public void PlayerBusted(){
 		HidePlayerButtons();
 		GameOverText("YOU BUST", Color.red);
@@ -40,6 +41,7 @@ public class BlackJackManager : MonoBehaviour {
 		tryAgain.SetActive(true);
 	}
 
+	//this function will be called if player hit 'stay' button
 	public void HidePlayerButtons(){
 		GameObject.Find("HitButton").SetActive(false);
 		GameObject.Find("StayButton").SetActive(false);
@@ -49,6 +51,7 @@ public class BlackJackManager : MonoBehaviour {
 		SceneManager.LoadScene(loadScene);
 	}
 
+	//Calculate the value of the cards on the hand
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
 		int handValue = 0;
 
