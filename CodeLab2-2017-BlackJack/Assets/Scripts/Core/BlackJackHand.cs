@@ -45,9 +45,14 @@ public class BlackJackHand : MonoBehaviour {
 
 	public void HitMe(){
 		if(!stay){
-			DeckOfCards.Card card = deck.DrawCard();
 
-			GameObject cardObj = Instantiate(Resources.Load("prefab/Card")) as GameObject;
+            BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+            manager.handValue = 0;
+
+            DeckOfCards.Card card = deck.DrawCard();
+            //new DeckOfCards.Card(DeckOfCards.Card.Type.A, DeckOfCards.Card.Suit.CLUBS);
+
+            GameObject cardObj = Instantiate(Resources.Load("prefab/Card")) as GameObject;
 
 			ShowCard(card, cardObj, hand.Count);
 

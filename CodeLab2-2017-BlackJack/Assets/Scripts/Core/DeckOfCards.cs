@@ -52,12 +52,14 @@ public class DeckOfCards : MonoBehaviour {
 		}
 
 		public int GetCardHighValue(){
-			int val;
+            BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+            int val;
 
 			switch(cardNum){
                 //change this here so that the A can be 11 or 1
 			case Type.A:
-				val = 11;
+                    if (manager.handValue + 11 > 21) val = 1;
+                    else val = 11;
 				break;
 			case Type.K:
 			case Type.Q:

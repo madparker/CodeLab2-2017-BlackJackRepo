@@ -8,6 +8,7 @@ public class BlackJackManager : MonoBehaviour {
 
 	public Text statusText;
 	public GameObject tryAgain;
+    public int handValue;
 	public string loadScene;
 
 	public void PlayerBusted(){
@@ -50,7 +51,7 @@ public class BlackJackManager : MonoBehaviour {
 	}
 
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
-		int handValue = 0;
+		handValue = 0;
 
 		foreach(DeckOfCards.Card handCard in hand){
 			handValue += handCard.GetCardHighValue();
@@ -62,12 +63,12 @@ public class BlackJackManager : MonoBehaviour {
         //and run it again, but if the card is an Ace
         //we only add 1 to the handvalue
         //else, do nothing
-        if(handValue > 21)
+        if (handValue > 21)
         {
             handValue = 0;
             foreach (DeckOfCards.Card handCard in hand)
             {
-                if(handCard.cardNum == DeckOfCards.Card.Type.A)
+                if (handCard.cardNum == DeckOfCards.Card.Type.A)
                 {
                     handValue += 1;
                 }
@@ -77,6 +78,6 @@ public class BlackJackManager : MonoBehaviour {
                 }
             }
         }
-		return handValue;
+        return handValue;
 	}
 }
