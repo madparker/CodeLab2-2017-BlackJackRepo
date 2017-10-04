@@ -10,7 +10,9 @@ public class BlackJackHand : MonoBehaviour {
 	public float xOffset;
 	public float yOffset;
 	public GameObject handBase;
-	public int handVals;
+	public int handValHigh;
+    public int handValLow;
+    public int handVal;
 
 	protected DeckOfCards deck;
 	protected List<DeckOfCards.Card> hand;
@@ -61,12 +63,20 @@ public class BlackJackHand : MonoBehaviour {
 	}
 
 	protected virtual void ShowValue(){
-		handVals = GetHandValue();
-			
-		total.text = "Player: " + handVals;
+		handValHigh = GetHandValue();
+        handValLow = GetHandLowValue();
+        handVal = handValHigh;
 
-		if(handVals > 21){
-			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().PlayerBusted();
+		total.text = "Player: " + handValHigh;
+
+		if(handValHigh > 21){
+            if (handValLow != handValHigh && handValLow < 21) {
+                handVal = handValLow;
+                total.text = "Player: " + handValLow;
+            }
+            else {
+                GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().PlayerBusted();
+            }
 		}
 	}
 
@@ -75,4 +85,10 @@ public class BlackJackHand : MonoBehaviour {
 
 		return manager.GetHandValue(hand);
 	}
+    public int GetHandLowValue() {
+		BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+
+		return manager.GetHandLowValue(hand);
+        
+    }
 }

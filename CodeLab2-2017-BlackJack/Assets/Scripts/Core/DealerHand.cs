@@ -22,25 +22,54 @@ public class DealerHand : BlackJackHand {
 	protected override void ShowValue(){
 
 		if(hand.Count > 1){
-			if(!reveal){
-				handVals = hand[1].GetCardHighValue();
+            if (!reveal) {
+                //before the reveal
+                handValHigh = hand[1].GetCardHighValue();
 
-				total.text = "Dealer: " + handVals + " + ???";
-			} else {
-				handVals = GetHandValue();
+                total.text = "Dealer: " + handValHigh + " + ???";
+            }
+            else {
 
-				total.text = "Dealer: " + handVals;
+                BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
 
-				BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+                handValHigh = GetHandValue();
+                handValLow = GetHandLowValue();
 
-				if(handVals > 21){
-					manager.DealerBusted();
-				} else if(!DealStay(handVals)){
+                Debug.Log("dealer hand value low " + handValLow);
+                Debug.Log("dealer hand value hi " + handValHigh);
+
+                if (handValLow == handValHigh) {
+                    handVal = handValHigh;
+                } else if (handValLow != handValHigh && handValHigh > 21) {
+                    handVal = handValLow;
+                } else  {
+                    handVal = handValHigh;
+                }
+
+                if (handVal <= 21) {
+                    //if the high value of the dealer's hand is less than 21,
+                    //show value and determine if they will hit
+                    total.text = "Dealer: " + handVal;
+                }
+                else if (handVal > 21) {
+                    //Debug.Log("is this bullshit being called????");
+                    // if both hi and low values are greater than 21, dealer busts
+                    manager.DealerBusted();
+                    return;
+
+                }
+
+				if (!DealStay(handVal)) {
+					//case when dealer has a high value over 21, low value under 21
+					//(using aces as value 1), and is showing 16 or less, so they must
+					//hit
 					Invoke("HitMe", 1);
-				} else {
+					
+				}
+				else {
 					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
 
-					if(handVals < playerHand.handVals){
+					if(handVal < playerHand.handVal){
 						manager.PlayerWin();
 					} else {
 						manager.PlayerLose();
@@ -51,7 +80,7 @@ public class DealerHand : BlackJackHand {
 	}
 
 	protected virtual bool DealStay(int handVal){
-		return handVal > 17;
+		return handVal > 16;
 	}
 
 	public void RevealCard(){

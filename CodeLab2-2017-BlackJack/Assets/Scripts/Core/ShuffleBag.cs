@@ -22,16 +22,26 @@ public class ShuffleBag<T> : ICollection<T>, IList<T>
 	/// </summary>
 	public T Next ()
 	{
+        //This is where ShuffleBag is different from ILists and ICollections
 		if (cursor < 1) {
+            //set the cursor at the end of the data, if we've gotten to 0
 			cursor = data.Count - 1;
 			if (data.Count < 1)
+                //if we're still at 0, means that data only has one (or no) values, so return default
 				return default(T);
 			return data[0];
 		}
+        //find random int between 0 and our current location
 		int grab = Mathf.FloorToInt (Random.value * (cursor + 1));
-		T temp = data[grab];
+		//store corresponding T in temporary value
+        T temp = data[grab];
+        //swap the random T with the T at our index, starting with the "grab"
+        //index...
+        //why use "this" keyword?
 		data[grab] = this.data[this.cursor];
+        //...followed by the cursor index
 		data[cursor] = temp;
+        //decrement cursor
 		cursor--;
 		return temp;
 	}

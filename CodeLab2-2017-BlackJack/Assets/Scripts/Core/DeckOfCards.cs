@@ -66,6 +66,20 @@ public class DeckOfCards : MonoBehaviour {
 
 			return val;
 		}
+
+        public int GetCardLowValue() {
+            int val;
+            switch (cardNum) {
+                case Type.A:
+                    val = 1;
+                    break;
+                
+                default:
+                    val = GetCardHighValue();
+                    break;
+            }
+            return val;
+        }
 	}
 
 	public static ShuffleBag<Card> deck;

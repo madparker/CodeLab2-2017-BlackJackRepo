@@ -16,6 +16,7 @@ public class BlackJackManager : MonoBehaviour {
 	}
 
 	public void DealerBusted(){
+        //Debug.Log("why isnt this bullshit being called?");
 		GameOverText("DEALER BUSTS!", Color.green);
 	}
 		
@@ -57,4 +58,13 @@ public class BlackJackManager : MonoBehaviour {
 		}
 		return handValue;
 	}
+
+    public virtual int GetHandLowValue(List<DeckOfCards.Card> hand) {
+		int handValue = 0;
+
+		foreach (DeckOfCards.Card handCard in hand) {
+			handValue += handCard.GetCardLowValue();
+		}
+		return handValue;
+    }
 }
