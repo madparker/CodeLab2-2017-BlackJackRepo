@@ -28,7 +28,7 @@ public class BlackJackManager : MonoBehaviour {
 	}
 
 
-	public void BlackJack(){
+	public void BlackJack(){ //this was never getting called, fixed this in ShowValue in BlackJackHand
 		GameOverText("Black Jack!", Color.green);
 		HidePlayerButtons();
 	}

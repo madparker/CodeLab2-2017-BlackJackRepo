@@ -69,6 +69,9 @@ public class BlackJackHand : MonoBehaviour {
 		if(handVals > 21){
 			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().PlayerBusted();
 		}
+		if(handVals == 21 && hand.Count == 2){ //fixed bug here, Blackjack now gets called correctly if the player gets 21 with their first two cards
+			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().BlackJack();
+		}
 	}
 
 	public int GetHandValue(){
