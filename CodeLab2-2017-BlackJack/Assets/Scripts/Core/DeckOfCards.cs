@@ -48,9 +48,10 @@ public class DeckOfCards : MonoBehaviour {
 		}
 
 		public int GetCardHighValue(){
+
 			int val;
 
-			switch(cardNum){
+            switch (cardNum){
 			case Type.A:
 				val = 11;
 				break;

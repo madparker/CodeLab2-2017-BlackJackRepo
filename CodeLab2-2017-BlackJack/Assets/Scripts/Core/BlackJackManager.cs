@@ -51,10 +51,20 @@ public class BlackJackManager : MonoBehaviour {
 
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
 		int handValue = 0;
+        bool hasAnAce = false;
 
 		foreach(DeckOfCards.Card handCard in hand){
 			handValue += handCard.GetCardHighValue();
-		}
+            if (handCard.cardNum == DeckOfCards.Card.Type.A)
+            {
+                hasAnAce = true;
+            }
+        }
+        if (handValue >= 21 && hasAnAce)
+        {
+            handValue -= 10;
+            hasAnAce = false;
+        }
 		return handValue;
 	}
 }
