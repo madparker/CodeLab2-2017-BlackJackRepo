@@ -33,6 +33,13 @@ public class BlackJackHand : MonoBehaviour {
 		//Deal two cards at the beginning of player round
 		HitMe();
 		HitMe();
+
+		//if player hand = 21, call black jack
+		if(handVals == 21){
+			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().BlackJack();
+		}
+
+
 	}
 	
 	// Update is called once per frame
@@ -85,6 +92,7 @@ public class BlackJackHand : MonoBehaviour {
 		cardObj.GetComponentsInChildren<Image>()[1].sprite = deck.GetSuitSprite(card);
 	}
 
+	//move each card to left
 	protected void MoveCard(){
 
 		for (int i=0; i<handBase.transform.childCount; i++){
@@ -107,10 +115,6 @@ public class BlackJackHand : MonoBehaviour {
 		//if player hand >21, call player busted
 		if(handVals > 21){
 			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().PlayerBusted();
-		}
-		//if player hand = 21, call black jack
-		if(handVals == 21){
-			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().BlackJack();
 		}
 	}
 
