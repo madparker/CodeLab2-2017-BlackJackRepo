@@ -53,11 +53,35 @@ public class BlackJackManager : MonoBehaviour {
 
 	//Calculate the value of the cards on the hand
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
+
 		int handValue = 0;
+		int A_Num = 0;
 
 		foreach(DeckOfCards.Card handCard in hand){
-			handValue += handCard.GetCardHighValue();
+			//if the hand doesn't have A, use the old way
+			if (handCard.cardNum != DeckOfCards.Card.Type.A) {
+				
+				handValue += handCard.GetCardHighValue ();
+			}
+			//if the hand has A, count how many A it has
+			else if (handCard.cardNum == DeckOfCards.Card.Type.A){
+
+				A_Num++;
+				handValue += handCard.GetCardHighValue ();
+			}
 		}
+		//if hand card > 21 and we know it has A in it
+		if (handValue > 21 && A_Num != 0) {
+			//for each A, if the hand value is bigger than 21, turn A value to 1
+			for (int i = 0; i <= A_Num; i++) {
+
+				if (handValue > 21) {
+					handValue = handValue - 10;
+				} 
+				else break;
+			}
+		}
+
 		return handValue;
 	}
 }

@@ -46,7 +46,7 @@ public class DeckOfCards : MonoBehaviour {
 		public override string ToString(){
 			return "The " + cardNum + " of " + suit;
 		}
-		//get the highest value of the card?
+		//get the highest value of the card, A = 11
 		public int GetCardHighValue(){
 			
 			int val;
@@ -67,6 +67,7 @@ public class DeckOfCards : MonoBehaviour {
 
 			return val;
 		}
+
 	}
 	//false randomness
 	public static ShuffleBag<Card> deck;
