@@ -51,7 +51,7 @@ public class DealerHand : BlackJackHand {
 	}
 
 	protected virtual bool DealStay(int handVal){
-		return handVal > 17;
+		return handVal >= 17;
 	}
 
 	public void RevealCard(){

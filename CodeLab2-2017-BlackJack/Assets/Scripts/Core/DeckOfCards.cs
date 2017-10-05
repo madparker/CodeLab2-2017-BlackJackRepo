@@ -76,7 +76,10 @@ public class DeckOfCards : MonoBehaviour {
 		if(!IsValidDeck()){
 			deck = new ShuffleBag<Card>();
 
-			AddCardsToDeck();
+			for (int i = 0; i < 4; i++) 
+			{
+				AddCardsToDeck();
+			}
 		}
 
 		Debug.Log("Cards in Deck: " + deck.Count);
