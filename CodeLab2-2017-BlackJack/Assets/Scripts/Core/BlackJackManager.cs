@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public class BlackJackManager : MonoBehaviour {
 
+	public static int blackJackValue = 21;
+
 	public Text statusText;
 	public GameObject tryAgain;
 	public string loadScene;

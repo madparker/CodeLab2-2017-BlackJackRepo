@@ -12,6 +12,7 @@ public class BlackJackHand : MonoBehaviour {
 	public GameObject handBase;
 	public int handVals;
 
+
 	protected DeckOfCards deck;
 	protected List<DeckOfCards.Card> hand;
 	bool stay = false;
@@ -26,6 +27,12 @@ public class BlackJackHand : MonoBehaviour {
 		hand = new List<DeckOfCards.Card>();
 		HitMe();
 		HitMe();
+
+		//If Player starts with 21, BlackJack is triggered automatically
+		if (handVals == BlackJackManager.blackJackValue) {
+
+			GameObject.Find ("BlackJackManager").GetComponent<BlackJackManager> ().BlackJack ();
+		}
 	}
 	
 	// Update is called once per frame
@@ -47,13 +54,15 @@ public class BlackJackHand : MonoBehaviour {
 	}
 
 	protected void ShowCard(DeckOfCards.Card card, GameObject cardObj, int pos){
+		float mod = 110f;
+
 		cardObj.name = card.ToString();
 
 		cardObj.transform.SetParent(handBase.transform);
 		cardObj.GetComponent<RectTransform>().localScale = new Vector2(1, 1);
 		cardObj.GetComponent<RectTransform>().anchoredPosition = 
 			new Vector2(
-				xOffset + pos * 110, 
+				xOffset + pos * mod, 
 				yOffset);
 
 		cardObj.GetComponentInChildren<Text>().text = deck.GetNumberString(card);
@@ -65,12 +74,9 @@ public class BlackJackHand : MonoBehaviour {
 			
 		total.text = "Player: " + handVals;
 
-		if (handVals > 21) {
+		if (handVals > BlackJackManager.blackJackValue) {
 			GameObject.Find ("BlackJackManager").GetComponent<BlackJackManager> ().PlayerBusted ();
-		} else if (handVals == 21) {
-
-			GameObject.Find ("BlackJackManager").GetComponent<BlackJackManager> ().BlackJack ();
-		}
+		} 
 	}
 
 	public int GetHandValue(){
