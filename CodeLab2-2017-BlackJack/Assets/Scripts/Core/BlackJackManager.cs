@@ -73,7 +73,7 @@ public class BlackJackManager : MonoBehaviour {
 		//if hand card > 21 and we know it has A in it
 		if (handValue > 21 && A_Num != 0) {
 			//for each A, if the hand value is bigger than 21, turn A value to 1
-			for (int i = 0; i <= A_Num; i++) {
+			for (int i = 0; i < A_Num; i++) {
 
 				if (handValue > 21) {
 					handValue = handValue - 10;
