@@ -9,6 +9,8 @@ public class DeckOfCards : MonoBehaviour {
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
 
+    int cardCount = 188;
+
 	public class Card{
 
 		public enum Suit {
@@ -108,6 +110,14 @@ public class DeckOfCards : MonoBehaviour {
 
 	public virtual Card DrawCard(){
 		Card nextCard = deck.Next();
+        cardCount -= 1;
+        Debug.Log("card count " + cardCount);
+        if (cardCount <= 20)
+        {
+            deck.Clear();
+            AddCardsToDeck();
+            cardCount = 188;
+        }
 		return nextCard;
 	}
 
