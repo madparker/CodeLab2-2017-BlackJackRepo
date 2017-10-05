@@ -105,6 +105,11 @@ public class DeckOfCards : MonoBehaviour {
 	public virtual Card DrawCard(){
 		Card nextCard = deck.Next();
 
+		if (deck.Cursor < 20){ //if there are 20 or less cards in the deck
+			deck.Clear();// clear the cards in the deck
+			AddCardsToDeck(); //add a new set of cards to the deck from which to pull
+		}
+
 		return nextCard;
 	}
 
