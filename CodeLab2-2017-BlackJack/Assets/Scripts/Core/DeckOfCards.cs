@@ -8,7 +8,6 @@ public class DeckOfCards : MonoBehaviour {
 	public Text cardNumUI;
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
-    public static int cardsDrawn;
     
     //inner class. a class inside the deckOfCards script
     //to refer to it, you have to say "DeckOfCards.Card"
@@ -102,16 +101,12 @@ public class DeckOfCards : MonoBehaviour {
         //if we've drawn enough cards that there are less than 20, then make a new shufflebag
         //because I don't know how to reset the cursor manually
         //then reset cardsDrawn to 0 because the next deck hasn't been touched
-        if ((deck.Count - cardsDrawn) < 20)
+        if (deck.Cursor < 20)
         {
             deck = null;
             deck = new ShuffleBag<Card>();
             AddCardsToDeck();
-            cardsDrawn = 0;
         }
-
-        Debug.Log("Cards in Deck: " + deck.Count);
-        Debug.Log(cardsDrawn);
 	}
 
 	protected virtual bool IsValidDeck(){
@@ -139,8 +134,8 @@ public class DeckOfCards : MonoBehaviour {
     }
 
 	public virtual Card DrawCard(){
+        Debug.Log(deck.Cursor);
 		Card nextCard = deck.Next();
-        cardsDrawn++;
 		return nextCard;
 	}
 
