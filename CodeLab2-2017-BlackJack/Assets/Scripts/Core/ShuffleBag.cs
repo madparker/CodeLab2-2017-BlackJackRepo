@@ -5,7 +5,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ShuffleBag<T> : ICollection<T>, IList<T>
+public class ShuffleBag<T> : ICollection<T>, IList<T> 
+//T is generic, basically a placeholder, allows us to use this for multiple data types
+//Interfaces are weird, they let classes behave as though they were something else, do some research on the topic
 {
 	private List<T> data = new List<T> ();
 	private int cursor = 0;

@@ -9,8 +9,10 @@ public class DeckOfCards : MonoBehaviour {
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
 
+	//an inner class, public so it can be accessed anywhere
 	public class Card{
-
+		//an enum is essentially a description of the potential possible states a thing can be in. 
+		//in this case, a suit can be spades, clubs, hearts, or diamonds, but not bears
 		public enum Suit {
 			SPADES, 	//0
 			CLUBS,		//1
@@ -52,7 +54,7 @@ public class DeckOfCards : MonoBehaviour {
 
 			switch(cardNum){
 			case Type.A:
-				val = 11;
+				val = 11; //problem here, the value should change based on situation
 				break;
 			case Type.K:
 			case Type.Q:
@@ -87,9 +89,11 @@ public class DeckOfCards : MonoBehaviour {
 	}
 
 	protected virtual void AddCardsToDeck(){
-		foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
-			foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
-				deck.Add(new Card(type, suit));
+		for (int i = 0; i < 4; i++) { //here was the problem, needed to add this loop so that we get 4 decks worth of cards
+			foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
+				foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){ //some problem here? this is virtual, wonder why
+					deck.Add(new Card(type, suit));
+				}
 			}
 		}
 	}

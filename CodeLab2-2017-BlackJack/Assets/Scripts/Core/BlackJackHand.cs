@@ -62,6 +62,7 @@ public class BlackJackHand : MonoBehaviour {
 
 	protected virtual void ShowValue(){
 		handVals = GetHandValue();
+		Debug.Log ("Player hand value: " + handVals);
 			
 		total.text = "Player: " + handVals;
 

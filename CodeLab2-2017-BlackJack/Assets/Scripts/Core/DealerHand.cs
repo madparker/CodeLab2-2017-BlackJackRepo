@@ -26,8 +26,10 @@ public class DealerHand : BlackJackHand {
 				handVals = hand[1].GetCardHighValue();
 
 				total.text = "Dealer: " + handVals + " + ???";
+				Debug.Log ("Dealer hand value: " + handVals);
 			} else {
 				handVals = GetHandValue();
+				Debug.Log ("Dealer hand value: " + handVals);
 
 				total.text = "Dealer: " + handVals;
 
@@ -50,8 +52,8 @@ public class DealerHand : BlackJackHand {
 		}
 	}
 
-	protected virtual bool DealStay(int handVal){
-		return handVal > 17;
+	protected virtual bool DealStay(int handVal){ //fixed, dealer should stay on a hard 17
+		return handVal >= 17;
 	}
 
 	public void RevealCard(){
