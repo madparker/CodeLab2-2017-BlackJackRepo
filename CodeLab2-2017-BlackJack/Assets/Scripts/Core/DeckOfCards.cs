@@ -9,6 +9,11 @@ public class DeckOfCards : MonoBehaviour {
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
 
+	int deckNum = 4;
+	public static int cardsUsed = 0;
+	public static int remainingCards;
+
+	int cardCountMin = 20;
 
 	//Inner Class
 	public class Card{
@@ -94,34 +99,42 @@ public class DeckOfCards : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+		SetupDeck ();
 
-		if(!IsValidDeck()){
-			deck = new ShuffleBag<Card>();
-
-			AddCardsToDeck();
-		}
-
-		Debug.Log("Cards in Deck: " + deck.Count);
 	}
 
 	protected virtual bool IsValidDeck(){
-		return deck != null; 
+		return deck != null;
+
 	}
 
 	protected virtual void AddCardsToDeck(){
-		foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
-			foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
-				deck.Add(new Card(type, suit));
+		// Uses the amount of decks set in deckNum to add cards to the game
+
+		for (int i = 0; i < deckNum; i++) {
+			foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))) {
+				foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))) {
+					deck.Add (new Card (type, suit));
+				}
 			}
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
+
 
 	public virtual Card DrawCard(){
+		
+		if (remainingCards <= cardCountMin) {
+			deck = null;
+			SetupDeck ();
+		}
+
+		//Draws card
 		Card nextCard = deck.Next();
+		Debug.Log("Cards in Deck: " + remainingCards);
+
+		//Tracks how many cards have been used
+		cardsUsed++;
+		remainingCards = deck.Count - cardsUsed;
 
 		return nextCard;
 	}
@@ -137,5 +150,17 @@ public class DeckOfCards : MonoBehaviour {
 		
 	public Sprite GetSuitSprite(Card card){
 		return cardSuits[card.suit.GetHashCode()];
+	}
+
+	void SetupDeck(){
+
+		if (!IsValidDeck ()) {
+			deck = new ShuffleBag<Card> ();
+			cardsUsed = 0;
+			DontDestroyOnLoad (transform.root.gameObject);
+			AddCardsToDeck ();
+		} else {
+			Destroy (transform.gameObject);
+		}
 	}
 }
