@@ -28,6 +28,7 @@ public class BlackJackHand : MonoBehaviour {
 		hand = new List<DeckOfCards.Card>();
 		HitMe();
 		HitMe();
+
 	}
 	
 	// Update is called once per frame
@@ -68,6 +69,8 @@ public class BlackJackHand : MonoBehaviour {
         handVal = handValHigh;
 
 		total.text = "Player: " + handValHigh;
+
+
 
 		if(handValHigh > 21){
             if (handValLow != handValHigh && handValLow < 21) {

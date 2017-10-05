@@ -87,13 +87,17 @@ public class DeckOfCards : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-		if(!IsValidDeck()){
+		if( !IsValidDeck() || deck.Cursor < 20){
 			deck = new ShuffleBag<Card>();
 
 			AddCardsToDeck();
+            AddCardsToDeck();
+            AddCardsToDeck();
+            AddCardsToDeck();
 		}
 
-		Debug.Log("Cards in Deck: " + deck.Count);
+        Debug.Log("Cards in Deck: " + deck.Cursor);
+
 	}
 
 	protected virtual bool IsValidDeck(){
@@ -130,4 +134,8 @@ public class DeckOfCards : MonoBehaviour {
 	public Sprite GetSuitSprite(Card card){
 		return cardSuits[card.suit.GetHashCode()];
 	}
+
+    void ReShuffleDeck() {
+        
+    }
 }

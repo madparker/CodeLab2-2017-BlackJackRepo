@@ -21,10 +21,12 @@ public class BlackJackManager : MonoBehaviour {
 	}
 		
 	public void PlayerWin(){
+        //HidePlayerButtons();
 		GameOverText("YOU WIN!", Color.green);
 	}
 		
 	public void PlayerLose(){
+        //HidePlayerButtons();
 		GameOverText("YOU LOSE.", Color.red);
 	}
 

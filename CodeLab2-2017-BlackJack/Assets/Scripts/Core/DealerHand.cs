@@ -35,8 +35,8 @@ public class DealerHand : BlackJackHand {
                 handValHigh = GetHandValue();
                 handValLow = GetHandLowValue();
 
-                Debug.Log("dealer hand value low " + handValLow);
-                Debug.Log("dealer hand value hi " + handValHigh);
+                //Debug.Log("dealer hand value low " + handValLow);
+                //Debug.Log("dealer hand value hi " + handValHigh);
 
                 if (handValLow == handValHigh) {
                     handVal = handValHigh;
