@@ -88,10 +88,16 @@ public class DeckOfCards : MonoBehaviour {
 	}
 
 	protected virtual void AddCardsToDeck(){
-		foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
-			foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
-				deck.Add(new Card(type, suit));
-			}
+        for (int i = 0; i <= 4; i++)
+        {
+            foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit)))
+            {
+                foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type)))
+                {
+                    deck.Add(new Card(type, suit));
+                }
+            }
+        
 		}
 	}
 	
