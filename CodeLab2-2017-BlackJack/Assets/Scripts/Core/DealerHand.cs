@@ -70,16 +70,16 @@ public class DealerHand : BlackJackHand {
 
 	protected virtual bool DealStay(int handVal){
 
-		BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
-		//if dealer hand <17, dealer have to stay 
-		if (handVal < 17) {
-			return true;
-		}
-		//if dealer hand > 17 and >= player hand, dealer don't need to hit more, dealer win
-		else if (handVal >= playerHand.handVals) {
-			return false;
-		} else
-			return true;
+//		BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
+//		//if dealer hand <17, dealer have to stay 
+//		if (handVal < 17) {
+//			return true;
+//		}
+//		//if dealer hand > 17 and >= player hand, dealer don't need to hit more, dealer win
+//		else if (handVal >= playerHand.handVals) {
+//			return false;
+//		} else
+		return handVal < 17;
 
 	}
 
