@@ -74,13 +74,14 @@ public class DeckOfCards : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-		if(!IsValidDeck()){
-			deck = new ShuffleBag<Card>();
+        if (!IsValidDeck())
+        {
+            deck = new ShuffleBag<Card>();
 
-			AddCardsToDeck();
-		}
+            AddCardsToDeck();
+        }
 
-		Debug.Log("Cards in Deck: " + deck.Count);
+        Debug.Log("Cards in Deck: " + deck.Count);
 	}
 
 	protected virtual bool IsValidDeck(){
@@ -88,7 +89,7 @@ public class DeckOfCards : MonoBehaviour {
 	}
 
 	protected virtual void AddCardsToDeck(){
-        for (int i = 0; i <= 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit)))
             {
@@ -107,7 +108,6 @@ public class DeckOfCards : MonoBehaviour {
 
 	public virtual Card DrawCard(){
 		Card nextCard = deck.Next();
-
 		return nextCard;
 	}
 
