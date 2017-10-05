@@ -26,10 +26,16 @@ public class BlackJackHand : MonoBehaviour {
 		hand = new List<DeckOfCards.Card>();
 		HitMe();
 		HitMe();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        //if our hand is equal to 21 at the start we win
+        if (handVals == 21)
+        {
+            GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().NaturalBlackJack();
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
 	}
 
 	public void HitMe(){
@@ -43,6 +49,7 @@ public class BlackJackHand : MonoBehaviour {
 			hand.Add(card);
 
 			ShowValue();
+
 		}
 	}
 
@@ -68,6 +75,7 @@ public class BlackJackHand : MonoBehaviour {
 		if(handVals > 21){
 			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().PlayerBusted();
 		}
+
 	}
 
 	public int GetHandValue(){

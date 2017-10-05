@@ -33,7 +33,14 @@ public class BlackJackManager : MonoBehaviour {
 		HidePlayerButtons();
 	}
 
-	public void GameOverText(string str, Color color){
+    //Added natural black jack check
+    public void NaturalBlackJack()
+    {
+        GameOverText("Natural Black Jack!", Color.green);
+        HidePlayerButtons();
+    }
+
+    public void GameOverText(string str, Color color){
 		statusText.text = str;
 		statusText.color = color;
 
@@ -51,10 +58,27 @@ public class BlackJackManager : MonoBehaviour {
 
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
 		int handValue = 0;
+        int count = 0;
+        List<DeckOfCards.Card> aces = new List<DeckOfCards.Card>();
 
-		foreach(DeckOfCards.Card handCard in hand){
+        foreach (DeckOfCards.Card handCard in hand){
+            if(handCard.cardNum == DeckOfCards.Card.Type.A)
+            {
+                aces.Add(handCard);
+            }
 			handValue += handCard.GetCardHighValue();
 		}
+
+        //if our current hand value is over 21 and we have atleast 1 ace, decrease our score by 10 until we have under 21 or until we run out of aces
+        if(handValue > 21 && aces.Count > 0)
+        {
+            while(handValue > 21 && count < aces.Count)
+            {
+                handValue -= 10;
+                count++;
+            }
+        }
+
 		return handValue;
 	}
 }

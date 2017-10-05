@@ -70,6 +70,8 @@ public class DeckOfCards : MonoBehaviour {
 
 	public static ShuffleBag<Card> deck;
 
+    private int remaining;
+
 	// Use this for initialization
 	void Awake () {
 
@@ -79,17 +81,21 @@ public class DeckOfCards : MonoBehaviour {
 			AddCardsToDeck();
 		}
 
+        remaining = deck.Count;
 		Debug.Log("Cards in Deck: " + deck.Count);
 	}
 
 	protected virtual bool IsValidDeck(){
-		return deck != null; 
+		return deck != null || remaining > 20; 
 	}
 
 	protected virtual void AddCardsToDeck(){
+        for(int i = 0; i < 4; i++) { 
 		foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
-			foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
-				deck.Add(new Card(type, suit));
+                foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type)))
+                {
+                    deck.Add(new Card(type, suit));
+                }
 			}
 		}
 	}
@@ -100,7 +106,7 @@ public class DeckOfCards : MonoBehaviour {
 
 	public virtual Card DrawCard(){
 		Card nextCard = deck.Next();
-
+        remaining--;
 		return nextCard;
 	}
 
@@ -116,4 +122,9 @@ public class DeckOfCards : MonoBehaviour {
 	public Sprite GetSuitSprite(Card card){
 		return cardSuits[card.suit.GetHashCode()];
 	}
+
+    public int GetRemaining()
+    {
+        return remaining;
+    }
 }
