@@ -9,6 +9,7 @@ public class BlackJackHand : MonoBehaviour {
 	public Text total; //The text box show the value of player hand
 	public float xOffset; //X position of the first card
 	public float yOffset; //y position of player cards
+	public float xBoard; //x postion of the left board 
 	public GameObject handBase; //put the cards under this gameobject  / child gameobject
 	public int handVals; //the value of the player hand
 
@@ -54,11 +55,20 @@ public class BlackJackHand : MonoBehaviour {
 			hand.Add(card);
 
 			ShowValue();
+
+			if (hand.Count == 4) {
+				MoveCard ();
+			}
+			if (hand.Count == 6) {
+				MoveCard ();
+			}
+
 		}
 	}
 
 	//set the card to the right position, and put the card under player hand gameobject
 	protected void ShowCard(DeckOfCards.Card card, GameObject cardObj, int pos){
+
 		cardObj.name = card.ToString();
 
 		cardObj.transform.SetParent(handBase.transform);
@@ -69,9 +79,23 @@ public class BlackJackHand : MonoBehaviour {
 			new Vector2(
 				xOffset + pos * 110, 
 				yOffset);
+
 		//display card name and suit on the screen
 		cardObj.GetComponentInChildren<Text>().text = deck.GetNumberString(card);
 		cardObj.GetComponentsInChildren<Image>()[1].sprite = deck.GetSuitSprite(card);
+	}
+
+	protected void MoveCard(){
+
+		for (int i=0; i<handBase.transform.childCount; i++){
+			
+			Transform child = handBase.transform.GetChild (i);
+			Vector2 anchorPos = child.GetComponent<RectTransform> ().anchoredPosition;
+			if (anchorPos.x > xBoard) {
+				child.GetComponent<RectTransform> ().anchoredPosition = anchorPos + new Vector2 (-110, 0);
+			} else
+				break;
+		}
 	}
 
 	//Calcluate card value and show it on screen. If player value > 21, call playerbusted function
