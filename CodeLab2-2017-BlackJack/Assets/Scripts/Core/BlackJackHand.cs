@@ -63,10 +63,7 @@ public class BlackJackHand : MonoBehaviour {
 
 			ShowValue();
 
-			if (hand.Count == 4) {
-				MoveCard ();
-			}
-			if (hand.Count == 6) {
+			if (hand.Count > 4) {
 				MoveCard ();
 			}
 
