@@ -89,20 +89,28 @@ public class DeckOfCards : MonoBehaviour {
 		return deck != null; 
 	}
 
-	//add 13 * 4 = 52 cards into deck
+	//add 4 * (13 * 4) = 208 cards into deck 
 	protected virtual void AddCardsToDeck(){
-		foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
-			foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
-				deck.Add(new Card(type, suit));
+		//4 deck of cards
+		for (int i = 0; i <4; i++) {
+			foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
+				foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
+					deck.Add(new Card(type, suit));
+				}
 			}
 		}
+
 	}
 
 	//draw new card from the deck
 	public virtual Card DrawCard(){
 		
 		Card nextCard = deck.Next();
-
+		//if deck less than 20, clear it and add new decks. Clear is important.
+		if (deck.Cursor < 20) {
+			deck.Clear ();
+			AddCardsToDeck ();
+		}
 		return nextCard;
 	}
 
