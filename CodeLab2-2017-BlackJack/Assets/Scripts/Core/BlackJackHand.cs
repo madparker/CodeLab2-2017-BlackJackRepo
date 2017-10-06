@@ -9,7 +9,9 @@ public class BlackJackHand : MonoBehaviour {
 	public Text total;
 	public float xOffset;
 	public float yOffset;
-	public GameObject handBase;
+    protected Vector3 firstPos = Vector3.zero;
+    protected GameObject cardContainer;
+    public GameObject handBase;
 	public int handVals;
 
 	protected DeckOfCards deck;
@@ -54,6 +56,8 @@ public class BlackJackHand : MonoBehaviour {
 
             GameObject cardObj = Instantiate(Resources.Load("prefab/Card")) as GameObject;
 
+            //puts the card on the table
+            //takes a card, a cardObject, and then passes the hand.count so that it can put cards at the right offset
 			ShowCard(card, cardObj, hand.Count);
 
 			hand.Add(card);
@@ -63,15 +67,22 @@ public class BlackJackHand : MonoBehaviour {
 	}
 
 	protected void ShowCard(DeckOfCards.Card card, GameObject cardObj, int pos){
-		cardObj.name = card.ToString();
 
+        //float averageXPos = 0;
+		cardObj.name = card.ToString();
 		cardObj.transform.SetParent(handBase.transform);
 		cardObj.GetComponent<RectTransform>().localScale = new Vector2(1, 1);
 		cardObj.GetComponent<RectTransform>().anchoredPosition = 
 			new Vector2(
 				xOffset + pos * 110, 
 				yOffset);
-
+        //averageXPos = (firstPos.x + cardObj.GetComponent<RectTransform>().transform.position.x);
+        if(hand.Count > 2)
+        {
+            handBase.GetComponent<RectTransform>().anchoredPosition = 
+                new Vector2(handBase.GetComponent<RectTransform>().anchoredPosition.x + (xOffset / 2),
+                            handBase.GetComponent<RectTransform>().anchoredPosition.y);
+        }
 		cardObj.GetComponentInChildren<Text>().text = deck.GetNumberString(card);
 		cardObj.GetComponentsInChildren<Image>()[1].sprite = deck.GetSuitSprite(card);
 	}
