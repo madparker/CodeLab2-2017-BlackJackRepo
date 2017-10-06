@@ -91,19 +91,21 @@ public class DeckOfCards : MonoBehaviour {
 			deck = new ShuffleBag<Card>();
 
 			AddCardsToDeck();
+			Debug.Log("Cards in deck: " + deck.Count);
 		}
 
-		Debug.Log("Cards in Deck: " + deck.Count);
-	}
+ 	}
 
 	protected virtual bool IsValidDeck(){
 		return deck != null; 
 	}
 
 	protected virtual void AddCardsToDeck(){
-		foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
-			foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
-				deck.Add(new Card(type, suit));
+		for (int i = 0; i<4; i++){ //add cards to deck 4 times.
+			foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
+				foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){
+					deck.Add(new Card(type, suit));
+				}
 			}
 		}
 	}
@@ -113,9 +115,16 @@ public class DeckOfCards : MonoBehaviour {
 	}
 
 	public virtual Card DrawCard(){
-		Card nextCard = deck.Next();
-
-		return nextCard;
+		if(deck.Cursor >= 20){ //keep getting the next card for as long as there are more than 20 in the deck.
+			Card nextCard = deck.Next();
+			return nextCard;
+		}
+		else { //if there are more than 20,
+			deck.Clear(); //clear the deck of all the old cards
+			AddCardsToDeck(); //add new ones
+			Card nextCard = deck.Next(); //then get the next card in the newly shuffled four decks.
+			return nextCard;
+		}
 	}
 
 

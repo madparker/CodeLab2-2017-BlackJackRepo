@@ -23,8 +23,7 @@ public class BlackJackHand : MonoBehaviour {
 
 	protected virtual void SetupHand(){
 		BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
-		manager.aces.Clear();
-		Debug.Log("Number of aces: " + manager.aces.Count);
+		manager.aces.Clear(); //probably unnecessary... but making sure again that no aces carry over.
   		deck = GameObject.Find("Deck").GetComponent<DeckOfCards>();
 		hand = new List<DeckOfCards.Card>();
 		HitMe();

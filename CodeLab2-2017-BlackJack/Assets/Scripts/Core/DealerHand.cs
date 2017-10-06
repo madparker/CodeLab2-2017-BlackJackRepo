@@ -65,7 +65,7 @@ public class DealerHand : BlackJackHand {
 		//problem here is, if player stays at a value below 17, say, 16, the dealer will keep asking for hits until it reaches 17,
 		//despite victory being assured already.
 		bool dealStay = false;
-		BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
+		// BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
 
 		if(handVal < 17){//first check if dealer hand is less than 17.
 			//dealer should never stay if hand is less than 17.

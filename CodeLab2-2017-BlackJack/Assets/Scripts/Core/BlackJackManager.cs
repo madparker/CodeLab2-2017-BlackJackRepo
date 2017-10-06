@@ -13,30 +13,25 @@ public class BlackJackManager : MonoBehaviour {
 	public void PlayerBusted(){
 		HidePlayerButtons();
 		GameOverText("YOU BUST", Color.red);
-		aces.Clear();
-	}
+ 	}
 
 	public void DealerBusted(){
 		GameOverText("DEALER BUSTS!", Color.green);
-		aces.Clear();
-	}
+ 	}
 		
 	public void PlayerWin(){
 		GameOverText("YOU WIN!", Color.green);
-		aces.Clear();
-	}
+ 	}
 		
 	public void PlayerLose(){
 		GameOverText("YOU LOSE.", Color.red);
-		aces.Clear();
-	}
+ 	}
 
 
 	public void BlackJack(){
 		GameOverText("Black Jack!", Color.green);
 		HidePlayerButtons();
-		aces.Clear();
-	}
+ 	}
 
 	public void GameOverText(string str, Color color){
 		statusText.text = str;
@@ -81,22 +76,13 @@ public class BlackJackManager : MonoBehaviour {
 						//if adding a non-Ace card busts a player and there are aces in the hand,
 						//keep subtracting 10 until player isn't busted.
 						handValue -= 10;
-						Debug.Log("Subtracting 10!" + handCard);
+						// Debug.Log("Subtracting 10!" + handCard);
 						aces.RemoveAt(0);//remove an ace from the list every time its value is subtracted.
 					}   
 				} 	// 3 + 1 + 10 = 14 
 					// 3 + 11 + 10 = 24
 					//  	
 			}
-
-
-
-			// if(handCard.cardNum == DeckOfCards.Card.Type.A && handValue >= 11){
-			// 	handValue += handCard.GetCardLowValue();				
-			// }
-			// else {
-			// 	handValue += handCard.GetCardHighValue();
-			// }
 		}
 		aces.Clear(); // make sure there are no aces that carry over to the dealer's hand.
 		return handValue;
