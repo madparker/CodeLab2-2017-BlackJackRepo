@@ -51,9 +51,34 @@ public class BlackJackManager : MonoBehaviour {
 
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
 		int handValue = 0;
+		int nonAceValue = 0;
+		int tempAceValue = 0;
+		List<DeckOfCards.Card> aces = new List<DeckOfCards.Card> ();
+		List<DeckOfCards.Card> nonAces = new List<DeckOfCards.Card> ();
+		List<int> possibleResults = new List<int> ();
+		foreach (DeckOfCards.Card handCard in hand) 
+		{
+			if (handCard.cardNum == DeckOfCards.Card.Type.A) {
+				aces.Add (handCard);
+			} else {
+				nonAces.Add (handCard);
+			}
+		}
 
-		foreach(DeckOfCards.Card handCard in hand){
-			handValue += handCard.GetCardHighValue ();
+		foreach(DeckOfCards.Card nonAce in nonAces)
+		{
+			handValue += nonAce.GetCardHighValue ();
+		}
+		foreach(DeckOfCards.Card ace in aces)
+		{
+			if (handValue + 11 > 21) {
+				handValue++;
+			}
+			else 
+			{
+				handValue += ace.GetCardHighValue ();
+			}
+
 		}
 		return handValue;
 	}

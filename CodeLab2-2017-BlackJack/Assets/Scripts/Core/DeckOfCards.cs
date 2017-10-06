@@ -8,9 +8,11 @@ public class DeckOfCards : MonoBehaviour {
 	public Text cardNumUI;
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
+	public DeckOfCards.Card [] stackedDeck;
 	public int numberOfDecks;
 	public int reshuffleAt;
 	public static GameObject instance;
+	int cardy;
 
 	public class Card{
 
@@ -75,6 +77,7 @@ public class DeckOfCards : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+		cardy = 0;
 		
 		if (!IsValidDeck ()) {
 			deck = new ShuffleBag<Card> ();
@@ -85,6 +88,14 @@ public class DeckOfCards : MonoBehaviour {
 		} else {
 			Destroy (gameObject);
 		}
+
+		stackedDeck = new DeckOfCards.Card[6];
+		stackedDeck [0] = new Card (Card.Type.A, Card.Suit.CLUBS);
+		stackedDeck [1] = new Card (Card.Type.EIGHT, Card.Suit.CLUBS);
+		stackedDeck [2] = new Card (Card.Type.TWO, Card.Suit.DIAMONDS);
+		stackedDeck [3] = new Card (Card.Type.TWO, Card.Suit.HEARTS);
+		stackedDeck [4] = new Card (Card.Type.A, Card.Suit.SPADES);
+		stackedDeck [5] = new Card (Card.Type.TWO, Card.Suit.SPADES);
 	}
 
 	protected virtual bool IsValidDeck(){
@@ -109,7 +120,13 @@ public class DeckOfCards : MonoBehaviour {
 	}
 
 	public virtual Card DrawCard(){
-		Card nextCard = deck.Next();
+		Card nextCard = null;
+		if (cardy < stackedDeck.Length) {
+			nextCard = stackedDeck [cardy];
+			cardy++;
+		} else {
+			nextCard = deck.Next();
+		}
 
 		return nextCard;
 	}
