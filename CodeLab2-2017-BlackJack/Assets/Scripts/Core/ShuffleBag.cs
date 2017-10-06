@@ -99,6 +99,11 @@ public class ShuffleBag<T> : ICollection<T>, IList<T>
 	{
 		data.Clear ();
 	}
+
+	public void reShuffle()
+	{
+		cursor = data.Count;
+	}
 	
 	public bool Contains (T item)
 	{

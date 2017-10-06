@@ -9,6 +9,7 @@ public class DeckOfCards : MonoBehaviour {
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
 	public int numberOfDecks;
+	public int reshuffleAt;
 	public static GameObject instance;
 
 	public class Card{
@@ -82,7 +83,7 @@ public class DeckOfCards : MonoBehaviour {
 			}
 			DontDestroyOnLoad (transform.root.gameObject);
 		} else {
-			Destroy (transform.root.gameObject);
+			Destroy (gameObject);
 		}
 	}
 
@@ -100,8 +101,11 @@ public class DeckOfCards : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		Debug.Log("Cards in Deck: " + deck.Count);
+		Debug.Log ("Cards left in deck: " + deck.Cursor);
+		if (deck.Cursor < reshuffleAt) 
+		{
+			deck.reShuffle ();
+		}
 	}
 
 	public virtual Card DrawCard(){
