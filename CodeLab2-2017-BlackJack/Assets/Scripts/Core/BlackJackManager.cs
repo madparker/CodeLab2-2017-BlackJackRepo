@@ -49,8 +49,9 @@ public class BlackJackManager : MonoBehaviour {
 		SceneManager.LoadScene(loadScene);
 	}
 
+	//created new list to hold the aces
 	public List<DeckOfCards.Card> aces = new List<DeckOfCards.Card>();
-	public int num = 0;
+
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
 		int handValue = 0;
 
@@ -69,19 +70,14 @@ public class BlackJackManager : MonoBehaviour {
    			} else { //if the card drawn is everything but an Ace.
 				//1. Add that card's value to the handValue.
 				handValue += handCard.GetCardHighValue();
-  				//if the new handValue exceeds 21, 
+  				//if the new handValue exceeds 21, and there are aces in the hand, 
 				if(handValue > 21 && aces.Count > 0){
 					while (handValue > 21 && aces.Count>0){
-					 
-						//if adding a non-Ace card busts a player and there are aces in the hand,
 						//keep subtracting 10 until player isn't busted.
 						handValue -= 10;
-						// Debug.Log("Subtracting 10!" + handCard);
-						aces.RemoveAt(0);//remove an ace from the list every time its value is subtracted.
+ 						aces.RemoveAt(0);//remove an ace from the list every time its value is subtracted.
 					}   
-				} 	// 3 + 1 + 10 = 14 
-					// 3 + 11 + 10 = 24
-					//  	
+				} 	 	
 			}
 		}
 		aces.Clear(); // make sure there are no aces that carry over to the dealer's hand.
