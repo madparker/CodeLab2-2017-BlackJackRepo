@@ -35,9 +35,6 @@ public class BlackJackHand : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	}
 
 	public void HitMe(){
 		if(!stay){

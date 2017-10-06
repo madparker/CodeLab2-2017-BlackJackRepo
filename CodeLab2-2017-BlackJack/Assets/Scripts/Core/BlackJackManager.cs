@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public class BlackJackManager : MonoBehaviour {
 
+	List <DeckOfCards.Card> aces = new List<DeckOfCards.Card>();
+
 	public static int blackJackValue = 21;
 
 	public Text statusText;
@@ -52,13 +54,45 @@ public class BlackJackManager : MonoBehaviour {
 	}
 
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
+		
 		int handValue = 0;
 
-		foreach(DeckOfCards.Card handCard in hand){
-			handValue += handCard.GetCardHighValue();
-
+		for (int i = 0; i < hand.Count; i++) {
+			// Put Aces in a list to evaluate them separately 
+			if (hand [i].cardNum != DeckOfCards.Card.Type.A) {
+				handValue += hand [i].GetCardHighValue ();
+			} else {
+				if (!aces.Contains (hand [i])) {	
+					aces.Add (hand [i]);
+				}
+			}
 		}
+
+		if (aces.Count > 0) {
+
+			//Calculate Aces and see which need high value and which need low value
+
+			for (int a = 0; a < aces.Count; a++) {
+				if (handValue + aces [a].GetCardHighValue () > blackJackValue) {
+					handValue += aces [a].GetCardLowValue ();
+				} else {
+					handValue += aces [a].GetCardHighValue ();
+				}
+			}
+		}
+
+		// If after calculating, the handvalue is great than 21, make them all low value
+		if (handValue > blackJackValue) {
+			handValue = 0;
+			for (int l = 0; l < hand.Count; l++) {
+				handValue += hand [l].GetCardLowValue ();
+			}
+		}
+
 
 		return handValue;
 	}
+
+
+		
 }

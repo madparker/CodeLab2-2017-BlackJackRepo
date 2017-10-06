@@ -13,6 +13,7 @@ public class DeckOfCards : MonoBehaviour {
 	public static int cardsUsed = 0;
 	public static int remainingCards;
 
+
 	int cardCountMin = 20;
 
 	//Inner Class
@@ -93,6 +94,8 @@ public class DeckOfCards : MonoBehaviour {
 
 			return val;
 		}
+
+	
 	}
 
 	public static ShuffleBag<Card> deck;
@@ -122,15 +125,15 @@ public class DeckOfCards : MonoBehaviour {
 
 
 	public virtual Card DrawCard(){
-		
+		//When card count falls below a minimum, the decks are reshuffled
 		if (remainingCards <= cardCountMin) {
 			deck = null;
 			SetupDeck ();
 		}
-
+	
 		//Draws card
 		Card nextCard = deck.Next();
-		Debug.Log("Cards in Deck: " + remainingCards);
+
 
 		//Tracks how many cards have been used
 		cardsUsed++;
@@ -163,4 +166,6 @@ public class DeckOfCards : MonoBehaviour {
 			Destroy (transform.gameObject);
 		}
 	}
+
+
 }
