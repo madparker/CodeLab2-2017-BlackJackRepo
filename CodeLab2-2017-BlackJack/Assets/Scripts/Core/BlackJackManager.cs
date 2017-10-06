@@ -29,7 +29,7 @@ public class BlackJackManager : MonoBehaviour {
 
 
 	public void BlackJack(){
-		GameOverText("BLACK JACK", Color.green);
+		GameOverText("BLACK JACK!", Color.green);
 		HidePlayerButtons();
 	}
 
@@ -53,7 +53,7 @@ public class BlackJackManager : MonoBehaviour {
 		int handValue = 0;
 
 		foreach(DeckOfCards.Card handCard in hand){
-			handValue += handCard.GetCardHighValue();
+			handValue += handCard.GetCardHighValue ();
 		}
 		return handValue;
 	}
