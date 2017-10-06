@@ -75,22 +75,15 @@ public class DeckOfCards : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		
-		if(!IsValidDeck()){
-			deck = new ShuffleBag<Card>();
-
-			for (int i = 0; i < numberOfDecks; i++) 
-			{
-				AddCardsToDeck();
+		if (!IsValidDeck ()) {
+			deck = new ShuffleBag<Card> ();
+			for (int i = 0; i < numberOfDecks; i++) {
+				AddCardsToDeck ();
 			}
+			DontDestroyOnLoad (transform.root.gameObject);
+		} else {
+			Destroy (transform.root.gameObject);
 		}
-
-//		if (instance == null) {
-//			instance = this.gameObject;
-//		} else {
-//			Destroy (this.gameObject);
-//		}
-//
-//		DontDestroyOnLoad (instance);
 	}
 
 	protected virtual bool IsValidDeck(){

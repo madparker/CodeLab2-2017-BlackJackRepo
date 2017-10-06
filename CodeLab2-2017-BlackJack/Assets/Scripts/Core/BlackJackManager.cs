@@ -29,7 +29,7 @@ public class BlackJackManager : MonoBehaviour {
 
 
 	public void BlackJack(){
-		GameOverText("Black Jack!", Color.green);
+		GameOverText("BLACK JACK", Color.green);
 		HidePlayerButtons();
 	}
 
