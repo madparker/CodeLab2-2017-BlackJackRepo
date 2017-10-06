@@ -19,10 +19,13 @@ public class BlackJackHand : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		SetupHand();
-	}
+ 	}
 
 	protected virtual void SetupHand(){
-		deck = GameObject.Find("Deck").GetComponent<DeckOfCards>();
+		BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+		manager.aces.Clear();
+		Debug.Log("Number of aces: " + manager.aces.Count);
+  		deck = GameObject.Find("Deck").GetComponent<DeckOfCards>();
 		hand = new List<DeckOfCards.Card>();
 		HitMe();
 		HitMe();

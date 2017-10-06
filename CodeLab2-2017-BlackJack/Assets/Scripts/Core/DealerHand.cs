@@ -5,12 +5,11 @@ using System.Collections;
 public class DealerHand : BlackJackHand {
 
 	public Sprite cardBack;
-
+	
 	bool reveal;
 
 	protected override void SetupHand(){
 		base.SetupHand();
-
 		GameObject cardOne = transform.GetChild(0).gameObject;
 		cardOne.GetComponentInChildren<Text>().text = "";
 		cardOne.GetComponentsInChildren<Image>()[0].sprite = cardBack;
@@ -68,15 +67,11 @@ public class DealerHand : BlackJackHand {
 		bool dealStay = false;
 		BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
 
-		if(handVal <= 17){//first check if dealer hand is less than 17.
-			//if true, then check if dealer has not already won.
-			if(handVal >= playerHand.handVals){ //if dealer has already won, despite being less than 17, stay.
-				dealStay = true;	
-			} else { 
-				dealStay = false;	
-			}
+		if(handVal < 17){//first check if dealer hand is less than 17.
+			//dealer should never stay if hand is less than 17.
+			dealStay = false;	
 		}
-		if(handVal >= 17){
+		else if(handVal >= 17){
 			dealStay = true;			// as long as hand is >= 17, ALWAYS STAY.
 		}	
 		return dealStay; 
