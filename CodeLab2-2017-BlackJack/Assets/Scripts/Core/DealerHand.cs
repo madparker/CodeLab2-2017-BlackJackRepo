@@ -26,10 +26,10 @@ public class DealerHand : BlackJackHand {
 				handVals = hand[1].GetCardHighValue();
 
 				total.text = "Dealer: " + handVals + " + ???";
-				Debug.Log ("Dealer hand value: " + handVals);
+				//Debug.Log ("Dealer hand value: " + handVals);
 			} else {
 				handVals = GetHandValue();
-				Debug.Log ("Dealer hand value: " + handVals);
+				//Debug.Log ("Dealer hand value: " + handVals);
 
 				total.text = "Dealer: " + handVals;
 

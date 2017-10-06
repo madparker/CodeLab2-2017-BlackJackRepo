@@ -9,6 +9,8 @@ public class DeckOfCards : MonoBehaviour {
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
 
+
+
 	//an inner class, public so it can be accessed anywhere
 	public class Card{
 		//an enum is essentially a description of the potential possible states a thing can be in. 
@@ -80,8 +82,7 @@ public class DeckOfCards : MonoBehaviour {
 
 			AddCardsToDeck();
 		}
-
-		Debug.Log("Cards in Deck: " + deck.Count);
+			
 	}
 
 	protected virtual bool IsValidDeck(){
@@ -104,13 +105,15 @@ public class DeckOfCards : MonoBehaviour {
 
 	public virtual Card DrawCard(){
 		Card nextCard = deck.Next();
-
+		Debug.Log("Cursor is at: " + deck.Cursor);
 		if (deck.Cursor < 20){ //if there are 20 or less cards in the deck
 			deck.Clear();// clear the cards in the deck
 			AddCardsToDeck(); //add a new set of cards to the deck from which to pull
 		}
 
+
 		return nextCard;
+
 	}
 
 
