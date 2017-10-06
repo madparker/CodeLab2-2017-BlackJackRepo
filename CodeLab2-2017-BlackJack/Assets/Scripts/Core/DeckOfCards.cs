@@ -8,6 +8,8 @@ public class DeckOfCards : MonoBehaviour {
 	public Text cardNumUI;
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
+	public int numberOfDecks;
+	public static GameObject instance;
 
 	public class Card{
 
@@ -72,17 +74,23 @@ public class DeckOfCards : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-
+		
 		if(!IsValidDeck()){
 			deck = new ShuffleBag<Card>();
 
-			for (int i = 0; i < 4; i++) 
+			for (int i = 0; i < numberOfDecks; i++) 
 			{
 				AddCardsToDeck();
 			}
 		}
 
-		Debug.Log("Cards in Deck: " + deck.Count);
+//		if (instance == null) {
+//			instance = this.gameObject;
+//		} else {
+//			Destroy (this.gameObject);
+//		}
+//
+//		DontDestroyOnLoad (instance);
 	}
 
 	protected virtual bool IsValidDeck(){
@@ -99,6 +107,8 @@ public class DeckOfCards : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		Debug.Log("Cards in Deck: " + deck.Count);
 	}
 
 	public virtual Card DrawCard(){
