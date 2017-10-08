@@ -17,10 +17,12 @@ public class BlackJackHand : MonoBehaviour
     protected DeckOfCards deck;
     protected List<DeckOfCards.Card> hand;
     bool stay = false;
+    BlackJackManager manager;
 
     // Use this for initialization
     void Start()
     {
+        manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
         SetupHand();
     }
 
@@ -37,7 +39,8 @@ public class BlackJackHand : MonoBehaviour
             handVals = GetHandValue();
             if (handVals == 21)
             {
-                BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+                //BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+                manager.dealerLoss++;
                 manager.BlackJack();
             }
         }
@@ -53,7 +56,7 @@ public class BlackJackHand : MonoBehaviour
         if (!stay)
         {
 
-            BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+            //BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
             manager.handValue = 0;
 
             DeckOfCards.Card card = deck.DrawCard();
@@ -101,14 +104,13 @@ public class BlackJackHand : MonoBehaviour
 
         if (handVals > 21)
         {
-            GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().PlayerBusted();
+            manager.playerLoss++;
+            manager.PlayerBusted();
         }
     }
 
     public int GetHandValue()
     {
-        BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
-
         return manager.GetHandValue(hand);
     }
 }

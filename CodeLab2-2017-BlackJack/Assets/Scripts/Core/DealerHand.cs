@@ -42,6 +42,7 @@ public class DealerHand : BlackJackHand
 
                 if (handVals > 21)
                 {
+                    manager.dealerLoss++;
                     manager.DealerBusted();
                 }
                 else if (!DealStay(handVals))
@@ -54,10 +55,12 @@ public class DealerHand : BlackJackHand
 
                     if (handVals < playerHand.handVals)
                     {
+                        manager.dealerLoss++;
                         manager.PlayerWin();
                     }
                     else
                     {
+                        manager.playerLoss++;
                         manager.PlayerLose();
                     }
                 }

@@ -11,18 +11,19 @@ public class BlackJackManager : MonoBehaviour
     public GameObject tryAgain;
     public int handValue;
     public string loadScene;
-    public static BlackJackManager instance;
+    public int playerLoss = 0;
+    public int dealerLoss = 0;
 
-    void Start()
+    void Update()
     {
-        if(instance == null)
+        if(playerLoss == 5)
         {
-            instance = this;
-            DontDestroyOnLoad(this);
+            PlayerDies();
         }
-        else
+
+        if(dealerLoss == 5)
         {
-            Destroy(this);
+            DealerDies();
         }
     }
 
@@ -49,11 +50,15 @@ public class BlackJackManager : MonoBehaviour
 
     public void PlayerDies()
     {
+        playerLoss = 0;
+        dealerLoss = 0;
         GameOverText("YOU DIED", Color.red);
     }
 
     public void DealerDies()
     {
+        playerLoss = 0;
+        dealerLoss = 0;
         GameOverText("DEALER DIED", Color.red);
     }
 
@@ -80,6 +85,8 @@ public class BlackJackManager : MonoBehaviour
 
     public void TryAgain()
     {
+        statusText.text = "";
+        tryAgain.SetActive(false);
         SceneManager.LoadScene(loadScene);
     }
 
