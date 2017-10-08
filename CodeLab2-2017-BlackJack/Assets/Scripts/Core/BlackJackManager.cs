@@ -4,58 +4,93 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
-public class BlackJackManager : MonoBehaviour {
+public class BlackJackManager : MonoBehaviour
+{
 
-	public Text statusText;
-	public GameObject tryAgain;
+    public Text statusText;
+    public GameObject tryAgain;
     public int handValue;
-	public string loadScene;
+    public string loadScene;
+    public static BlackJackManager instance;
 
-	public void PlayerBusted(){
-		HidePlayerButtons();
-		GameOverText("YOU BUST", Color.red);
-	}
+    void Start()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
-	public void DealerBusted(){
-		GameOverText("DEALER BUSTS!", Color.green);
-	}
-		
-	public void PlayerWin(){
-		GameOverText("YOU WIN!", Color.green);
-	}
-		
-	public void PlayerLose(){
-		GameOverText("YOU LOSE.", Color.red);
-	}
+    public void PlayerBusted()
+    {
+        HidePlayerButtons();
+        GameOverText("YOU BUST", Color.red);
+    }
+
+    public void DealerBusted()
+    {
+        GameOverText("DEALER BUSTS!", Color.green);
+    }
+
+    public void PlayerWin()
+    {
+        GameOverText("YOU WIN!", Color.green);
+    }
+
+    public void PlayerLose()
+    {
+        GameOverText("YOU LOSE.", Color.red);
+    }
+
+    public void PlayerDies()
+    {
+        GameOverText("YOU DIED", Color.red);
+    }
+
+    public void DealerDies()
+    {
+        GameOverText("DEALER DIED", Color.red);
+    }
 
 
-	public void BlackJack(){
-		GameOverText("Black Jack!", Color.green);
-		HidePlayerButtons();
-	}
+    public void BlackJack()
+    {
+        GameOverText("Black Jack!", Color.green);
+        HidePlayerButtons();
+    }
 
-	public void GameOverText(string str, Color color){
-		statusText.text = str;
-		statusText.color = color;
+    public void GameOverText(string str, Color color)
+    {
+        statusText.text = str;
+        statusText.color = color;
 
-		tryAgain.SetActive(true);
-	}
+        tryAgain.SetActive(true);
+    }
 
-	public void HidePlayerButtons(){
-		GameObject.Find("HitButton").SetActive(false);
-		GameObject.Find("StayButton").SetActive(false);
-	}
+    public void HidePlayerButtons()
+    {
+        GameObject.Find("HitButton").SetActive(false);
+        GameObject.Find("StayButton").SetActive(false);
+    }
 
-	public void TryAgain(){
-		SceneManager.LoadScene(loadScene);
-	}
+    public void TryAgain()
+    {
+        SceneManager.LoadScene(loadScene);
+    }
 
-	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
-		handValue = 0;
+    public virtual int GetHandValue(List<DeckOfCards.Card> hand)
+    {
+        handValue = 0;
 
-		foreach(DeckOfCards.Card handCard in hand){
-			handValue += handCard.GetCardHighValue();
-		}
+        foreach (DeckOfCards.Card handCard in hand)
+        {
+            handValue += handCard.GetCardHighValue();
+        }
 
         //if we've found the handValue and it's over 21
         //then we want to make sure it's not because of an Ace
@@ -79,5 +114,5 @@ public class BlackJackManager : MonoBehaviour {
             }
         }
         return handValue;
-	}
+    }
 }
