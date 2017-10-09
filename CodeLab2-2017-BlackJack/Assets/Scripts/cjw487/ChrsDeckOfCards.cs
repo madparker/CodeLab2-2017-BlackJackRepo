@@ -47,7 +47,7 @@ namespace Chrs
                 {
                     foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type)))
                     {
-                        deck.Add(new BlackJackCard(type, suit));
+                            deck.Add(new BlackJackCard(type, suit));
                     }
                 }
             }
