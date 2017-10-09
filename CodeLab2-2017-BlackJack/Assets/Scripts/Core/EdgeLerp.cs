@@ -11,7 +11,7 @@ public class EdgeLerp : MonoBehaviour
     Vector3 initialScale;
     Vector3 targetScale;
     bool faded;
-    float duration = 1;
+    public float duration;
     float timeElapsed = 0;
     public static EdgeLerp instance;
 

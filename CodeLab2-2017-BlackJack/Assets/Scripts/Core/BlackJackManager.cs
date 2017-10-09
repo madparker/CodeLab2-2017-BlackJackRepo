@@ -13,6 +13,10 @@ public class BlackJackManager : MonoBehaviour
     public string loadScene;
     public int playerLoss = 0;
     public int dealerLoss = 0;
+    public Image playerBlood;
+    public Image dealerBlood;
+    public AudioClip gunShot;
+    AudioSource source;
 
     void Update()
     {
@@ -53,6 +57,11 @@ public class BlackJackManager : MonoBehaviour
         playerLoss = 0;
         dealerLoss = 0;
         GameOverText("YOU DIED", Color.red);
+        playerBlood = GameObject.Find("PlayerBloodSplatter").GetComponent<Image>();
+        source = GetComponent<AudioSource>();
+        source.clip = gunShot;
+        source.Play();
+        playerBlood.enabled = true;
     }
 
     public void DealerDies()
@@ -60,6 +69,11 @@ public class BlackJackManager : MonoBehaviour
         playerLoss = 0;
         dealerLoss = 0;
         GameOverText("DEALER DIED", Color.red);
+        dealerBlood = GameObject.Find("DealerBloodSplatter").GetComponent<Image>();
+        source = GetComponent<AudioSource>();
+        source.clip = gunShot;
+        source.Play();
+        dealerBlood.enabled = true;
     }
 
 
@@ -83,9 +97,16 @@ public class BlackJackManager : MonoBehaviour
         GameObject.Find("StayButton").SetActive(false);
     }
 
+    public void ShowPlayerButtons()
+    {
+        GameObject.Find("HitButton").SetActive(true);
+        GameObject.Find("StayButton").SetActive(true);
+    }
+
     public void TryAgain()
     {
         statusText.text = "";
+        //ShowPlayerButtons();
         tryAgain.SetActive(false);
         SceneManager.LoadScene(loadScene);
     }

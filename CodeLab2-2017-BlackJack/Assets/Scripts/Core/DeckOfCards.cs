@@ -9,6 +9,8 @@ public class DeckOfCards : MonoBehaviour
     public Text cardNumUI;
     public Image cardImageUI;
     public Sprite[] cardSuits;
+    public AudioClip drawCard;
+    AudioSource source;
 
     //inner class. a class inside the deckOfCards script
     //to refer to it, you have to say "DeckOfCards.Card"
@@ -116,6 +118,8 @@ public class DeckOfCards : MonoBehaviour
             deck = new ShuffleBag<Card>();
             AddCardsToDeck();
         }
+
+        source = GetComponent<AudioSource>();
     }
 
     protected virtual bool IsValidDeck()
@@ -149,6 +153,8 @@ public class DeckOfCards : MonoBehaviour
     {
         Debug.Log(deck.Cursor);
         Card nextCard = deck.Next();
+        source.clip = drawCard;
+        source.Play();
         return nextCard;
     }
 

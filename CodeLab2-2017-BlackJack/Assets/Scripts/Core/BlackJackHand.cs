@@ -26,6 +26,10 @@ public class BlackJackHand : MonoBehaviour
         SetupHand();
     }
 
+    public virtual void HideButtonShortcut()
+    {
+        manager.HidePlayerButtons();
+    }
     protected virtual void SetupHand()
     {
         deck = GameObject.Find("Deck").GetComponent<DeckOfCards>();
