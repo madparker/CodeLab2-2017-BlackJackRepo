@@ -18,15 +18,7 @@ public class EdgeLerp : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if(instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+
         blurredEye = this.GetComponent<Image>();
         blurredEye.CrossFadeAlpha(0.75f, 0, true);
         initialScale = blurredEye.transform.localScale;

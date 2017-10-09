@@ -17,15 +17,43 @@ public class BlackJackManager : MonoBehaviour
     public Image dealerBlood;
     public AudioClip gunShot;
     AudioSource source;
+    public GameObject playerDialogue;
+    public GameObject dealerDialogue;
+    public string[] playerLines;
+    private char currentLetter;
+    public bool startingDialogue;
+    public bool readyForNextChar;
+    private int charCount;
+    private int lineIndex;
+
+    void Start()
+    {
+        playerDialogue.SetActive(false);
+        dealerDialogue.SetActive(false);
+    }
 
     void Update()
     {
-        if(playerLoss == 5)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            startingDialogue = true;
+            playerDialogue.GetComponentInChildren<Text>().text = "";
+        }
+        if (startingDialogue == true && charCount < playerLines[lineIndex].Length)
+        {
+            playerDialogue.SetActive(true);
+            currentLetter = playerLines[lineIndex][charCount];
+            playerDialogue.GetComponentInChildren<Text>().text += currentLetter;
+            startingDialogue = false;
+            StartCoroutine(WaitForChar(0.01f));
+        }
+
+        if (playerLoss == 5)
         {
             PlayerDies();
         }
 
-        if(dealerLoss == 5)
+        if (dealerLoss == 5)
         {
             DealerDies();
         }
@@ -142,5 +170,15 @@ public class BlackJackManager : MonoBehaviour
             }
         }
         return handValue;
+    }
+
+    IEnumerator WaitForChar(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if(charCount < playerLines[0].Length)
+        {
+            charCount++;
+            startingDialogue = true;
+        }
     }
 }
