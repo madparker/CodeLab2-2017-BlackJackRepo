@@ -23,7 +23,7 @@ public class BlackJackHand : MonoBehaviour
     void Start()
     {
         manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
-        SetupHand();
+        //SetupHand();
     }
 
     public virtual void HideButtonShortcut()

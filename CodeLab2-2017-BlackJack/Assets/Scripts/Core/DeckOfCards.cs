@@ -101,10 +101,10 @@ public class DeckOfCards : MonoBehaviour
         if (!IsValidDeck())
         {
             deck = new ShuffleBag<Card>();
-            DontDestroyOnLoad(transform.root.gameObject);
+            //DontDestroyOnLoad(transform.root.gameObject);
             AddCardsToDeck();
         }
-        else Destroy(gameObject);
+        //else Destroy(gameObject);
 
         //if there are less than 20 cards left in the deck, reshuffle everything
         //since the shuffleBag doesn't actually remove the card
