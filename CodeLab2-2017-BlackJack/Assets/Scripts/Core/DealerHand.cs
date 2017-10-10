@@ -14,6 +14,7 @@ public class DealerHand : BlackJackHand {
 		GameObject cardOne = transform.GetChild(0).gameObject;
 		cardOne.GetComponentInChildren<Text>().text = "";
 		cardOne.GetComponentsInChildren<Image>()[0].sprite = cardBack;
+		cardOne.GetComponentsInChildren<Image> () [0].color = BlackJackManager.Instance.myCardColors [1];
 		cardOne.GetComponentsInChildren<Image>()[1].enabled = false;
 
 		reveal = false;
@@ -57,13 +58,19 @@ public class DealerHand : BlackJackHand {
 	public void RevealCard(){
 		reveal = true;
 
-		GameObject cardOne = transform.GetChild(0).gameObject;
+		GameObject cardOne = transform.GetChild(0).GetChild(0).gameObject;
 
-		cardOne.GetComponentsInChildren<Image>()[0].sprite = null;
-		cardOne.GetComponentsInChildren<Image>()[1].enabled = true;
 
-		ShowCard(hand[0], cardOne, 0);
+		FlipCard(hand[0], cardOne, 0);
 
 		ShowValue();
+	}
+
+	protected void FlipCard(DeckOfCards.Card card, GameObject cardObj, int pos){
+		cardObj.GetComponentsInChildren<Image>()[1].enabled = true;
+
+		cardObj.GetComponentInChildren<Text>().text = deck.GetNumberString(card);
+		cardObj.GetComponentsInChildren<Image>()[1].sprite = deck.GetSuitSprite(card);
+		cardObj.GetComponent<Image> ().color = deck.GetSuitColor (card);
 	}
 }

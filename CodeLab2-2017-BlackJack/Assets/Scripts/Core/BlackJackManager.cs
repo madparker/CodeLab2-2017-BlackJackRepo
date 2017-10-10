@@ -6,30 +6,49 @@ using System.Collections.Generic;
 
 public class BlackJackManager : MonoBehaviour {
 
+	private static BlackJackManager instance = null;
+
+	public static BlackJackManager Instance {
+		get { 
+			return instance;
+		}
+	}
+
+	void Awake () {
+		if (instance != null && instance != this) {
+			Destroy (this.gameObject);
+		} else {
+			instance = this;
+		}
+	}
+
 	public Text statusText;
 	public GameObject tryAgain;
 	public string loadScene;
 
+	[SerializeField] Color[] myTextColors = new Color[2];
+	public Color[] myCardColors = new Color[2];
+
 	public void PlayerBusted(){
 		HidePlayerButtons();
-		GameOverText("YOU BUST", Color.red);
+		GameOverText ("YOU BUST", myTextColors [0]);
 	}
 
 	public void DealerBusted(){
-		GameOverText("DEALER BUSTS!", Color.green);
+		GameOverText ("DEALER BUSTS!", myTextColors [1]);
 	}
 		
 	public void PlayerWin(){
-		GameOverText("YOU WIN!", Color.green);
+		GameOverText ("YOU WIN!", myTextColors [1]);
 	}
 		
 	public void PlayerLose(){
-		GameOverText("YOU LOSE.", Color.red);
+		GameOverText ("YOU LOSE.", myTextColors [0]);
 	}
 
 
 	public void BlackJack(){
-		GameOverText("Black Jack!", Color.green);
+		GameOverText ("Black Jack!", myTextColors [1]);
 		HidePlayerButtons();
 	}
 

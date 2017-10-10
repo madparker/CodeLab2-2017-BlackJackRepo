@@ -8,7 +8,7 @@ namespace Hang{
 		[SerializeField] int myDeckCount = 4;
 
 		public override Card DrawCard(){
-//			Debug.Log (deck.Cursor);
+			Debug.Log (deck.Cursor);
 			Card nextCard = deck.Next();
 //			Debug.Log (nextCard.ToString ());
 			if (deck.Cursor < 20) {

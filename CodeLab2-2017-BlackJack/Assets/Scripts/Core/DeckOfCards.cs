@@ -8,6 +8,7 @@ public class DeckOfCards : MonoBehaviour {
 	public Text cardNumUI;
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
+	public Color[] cardColors;
 
 	public class Card{
 
@@ -114,6 +115,10 @@ public class DeckOfCards : MonoBehaviour {
 	}
 		
 	public Sprite GetSuitSprite(Card card){
-		return cardSuits[card.suit.GetHashCode()];
+		return cardSuits [card.suit.GetHashCode ()];
+	}
+
+	public Color GetSuitColor(Card card){
+		return cardColors [card.suit.GetHashCode ()];
 	}
 }

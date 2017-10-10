@@ -51,13 +51,14 @@ public class BlackJackHand : MonoBehaviour {
 
 		cardObj.transform.SetParent(handBase.transform);
 		cardObj.GetComponent<RectTransform>().localScale = new Vector2(1, 1);
-		cardObj.GetComponent<RectTransform>().anchoredPosition = 
-			new Vector2(
-				xOffset + pos * 110, 
-				yOffset);
+		cardObj.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (pos * xOffset, yOffset);
+		handBase.GetComponent<RectTransform> ().anchoredPosition = 
+			new Vector2 (-pos * xOffset / 2, handBase.GetComponent<RectTransform> ().anchoredPosition.y);
 
 		cardObj.GetComponentInChildren<Text>().text = deck.GetNumberString(card);
 		cardObj.GetComponentsInChildren<Image>()[1].sprite = deck.GetSuitSprite(card);
+//		Debug.Log (cardObj.name + " " + cardObj.GetComponent<Image> ());
+		cardObj.GetComponent<Image> ().color = deck.GetSuitColor (card);
 	}
 
 	protected virtual void ShowValue(){
