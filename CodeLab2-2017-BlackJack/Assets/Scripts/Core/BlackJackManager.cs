@@ -17,54 +17,11 @@ public class BlackJackManager : MonoBehaviour
     public Image dealerBlood;
     public AudioClip gunShot;
     AudioSource source;
-    public GameObject playerDialogue;
-    public GameObject dealerDialogue;
-    public string[] playerLines;
-    public string[] dealerLines;
-    private char currentLetter;
-    public bool startingDialogue;
-    public bool readyForNextChar;
-    private int charCount;
-    private int lineIndex;
     public GameObject eyes;
-    public bool startingGame;
     float timeElapsed;
-
-    void Start()
-    {
-        playerDialogue.SetActive(false);
-        dealerDialogue.SetActive(false);
-        HidePlayerButtons();
-        GameObject death = GameObject.Find("Death");
-        death.GetComponent<Image>().color = new Color(0, 0, 0, 255);
-    }
 
     void Update()
     {
-        if (startingGame)
-        {
-            Debug.Log("opening eyes");
-            GameObject death = GameObject.Find("Death");
-            death.GetComponent<Image>().CrossFadeAlpha(0, 1, false);
-            GameObject.Find("StartButton").SetActive(false);
-            startingGame = false;
-            StartCoroutine(StartDialogue(2, 0.05f, 0, dealerDialogue, dealerLines));
-        }
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    startingDialogue = true;
-        //    playerDialogue.GetComponentInChildren<Text>().text = "";
-        //}
-        //if (startingDialogue == true && charCount < playerLines[lineIndex].Length)
-        //{
-        //    playerDialogue.SetActive(true);
-        //    currentLetter = playerLines[lineIndex][charCount];
-        //    playerDialogue.GetComponentInChildren<Text>().text += currentLetter;
-        //    startingDialogue = false;
-        //    StartCoroutine(WaitForChar(0.01f));
-        //}
-
         if (playerLoss == 5)
         {
             PlayerDies();
@@ -73,32 +30,6 @@ public class BlackJackManager : MonoBehaviour
         if (dealerLoss == 5)
         {
             DealerDies();
-        }
-    }
-
-    IEnumerator StartDialogue(float time, float textSpeed, int lineIndex, GameObject character, string[] lines)
-    {
-        yield return new WaitForSeconds(time);
-        character.GetComponentInChildren<Text>().text = "";
-        character.SetActive(true);
-        while (charCount < lines[lineIndex].Length)
-        {
-            currentLetter = lines[lineIndex][charCount];
-            character.GetComponentInChildren<Text>().text += currentLetter;
-            StartCoroutine(WaitForChar(0, lineIndex, lines));
-            yield return new WaitForSeconds(textSpeed);
-            yield return null;
-        }
-        yield break;
-    }
-
-
-    IEnumerator WaitForChar(float time, int lineIndex, string[] lines)
-    {
-        yield return new WaitForSeconds(time);
-        if (charCount < lines[lineIndex].Length)
-        {
-            charCount++;
         }
     }
 
@@ -180,14 +111,8 @@ public class BlackJackManager : MonoBehaviour
     public void TryAgain()
     {
         statusText.text = "";
-        //ShowPlayerButtons();
         tryAgain.SetActive(false);
         SceneManager.LoadScene(loadScene);
-    }
-
-    public void OpenEyes()
-    {
-        startingGame = true;
     }
 
     IEnumerator WaitToDie(float time)

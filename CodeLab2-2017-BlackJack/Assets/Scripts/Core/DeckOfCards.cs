@@ -85,26 +85,20 @@ public class DeckOfCards : MonoBehaviour
     }
 
     public static ShuffleBag<Card> deck;
-    public static DeckOfCards deckScript;
 
     // Use this for initialization
     void Awake()
     {
 
-        //if the deck does not exist
-        //make a new deck
-        //but we wanna make the deck a singleton
-        //if we don't, then every time we load a new scene, it's going to make a new shufflebag
-        //so we're not actually reusing the same deck, rather just making a new one every time
-        //so we make the canvas attached to the deck a singleton
-        //if the deck DOES exist, then on start, destroy the canvas
         if (!IsValidDeck())
         {
+            Debug.Log("making new deck");
             deck = new ShuffleBag<Card>();
-            //DontDestroyOnLoad(transform.root.gameObject);
+            DontDestroyOnLoad(transform.root.gameObject);
             AddCardsToDeck();
+            Debug.Log(deck.Count);
         }
-        //else Destroy(gameObject);
+        else Destroy(gameObject);
 
         //if there are less than 20 cards left in the deck, reshuffle everything
         //since the shuffleBag doesn't actually remove the card

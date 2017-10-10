@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 
 public class BlackJackHand : MonoBehaviour
@@ -18,12 +19,14 @@ public class BlackJackHand : MonoBehaviour
     protected List<DeckOfCards.Card> hand;
     bool stay = false;
     BlackJackManager manager;
+    DialogueManager dialogueManager;
 
     // Use this for initialization
     void Start()
     {
+        dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
-        //SetupHand();
+        SetupHand();
     }
 
     public virtual void HideButtonShortcut()
@@ -62,7 +65,6 @@ public class BlackJackHand : MonoBehaviour
 
             //BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
             manager.handValue = 0;
-
             DeckOfCards.Card card = deck.DrawCard();
             //new DeckOfCards.Card(DeckOfCards.Card.Type.A, DeckOfCards.Card.Suit.CLUBS);
 
