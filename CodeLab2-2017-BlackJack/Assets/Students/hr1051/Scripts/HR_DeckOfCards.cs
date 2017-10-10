@@ -1,15 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Hang;
 
 namespace Hang{
 	public class HR_DeckOfCards : DeckOfCards {
 		[SerializeField] int myDeckCount = 4;
+		private int myCardAmount = 208;
+		[SerializeField] Text myCardCountText;
+		[SerializeField] RectTransform myCardBack;
+		[SerializeField] Vector2 myCardBackXRange = new Vector2 (0, 20);
 
 		public override Card DrawCard(){
-			Debug.Log (deck.Cursor);
 			Card nextCard = deck.Next();
+
+			myCardCountText.text = deck.Cursor.ToString ("#");
+			myCardBack.anchoredPosition = new Vector2 (
+				(float)deck.Cursor / (float)myCardAmount * (myCardBackXRange.y - myCardBackXRange.x) + myCardBackXRange.x,
+				0
+			);
+
 //			Debug.Log (nextCard.ToString ());
 			if (deck.Cursor < 20) {
 				deck.Clear ();
@@ -28,6 +39,8 @@ namespace Hang{
 					}
 				}
 			}
+
+			myCardAmount = deck.Count;
 		}
 
 	}

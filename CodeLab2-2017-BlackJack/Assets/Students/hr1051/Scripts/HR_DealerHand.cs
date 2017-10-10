@@ -12,13 +12,19 @@ namespace Hang{
 			myPlayer = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
 		}
 
-		protected override bool DealStay(int handVal){
-			if (GetHandValue() >= 17)
-				return true;
-
-//			if (myPlayer.GetHandValue () <= GetHandValue ())
+//		protected override bool DealStay(int handVal){
+//			if (GetHandValue() >= 17)
 //				return true;
+//
+////			if (myPlayer.GetHandValue () <= GetHandValue ())
+////				return true;
+//
+//			return false;
+//		}
 
+		protected override bool DealStay(int handVal){
+			if (myPlayer.GetHandValue () <= GetHandValue ())
+				return true;
 			return false;
 		}
 	}

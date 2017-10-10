@@ -23,21 +23,21 @@ public class DealerHand : BlackJackHand {
 	protected override void ShowValue(){
 
 		if(hand.Count > 1){
-			if(!reveal){
-				handVals = hand[1].GetCardHighValue();
+			if (!reveal) {
+				handVals = hand [1].GetCardHighValue ();
 
 				total.text = "Dealer: " + handVals + " + ???";
 			} else {
-				handVals = GetHandValue();
+				handVals = GetHandValue ();
 
 				total.text = "Dealer: " + handVals;
 
-				BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+				BlackJackManager manager = GameObject.Find ("BlackJackManager").GetComponent<BlackJackManager> ();
 
-				if(handVals > 21){
-					manager.DealerBusted();
-				} else if(!DealStay(handVals)){
-					Invoke("HitMe", 1);
+				if (CheckBusted ()) {
+					manager.DealerBusted ();
+				} else if (!DealStay (handVals)) {
+					Invoke ("HitMe", 1);
 				} else {
 					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
 

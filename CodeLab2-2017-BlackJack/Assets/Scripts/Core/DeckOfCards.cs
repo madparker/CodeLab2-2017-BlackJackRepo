@@ -13,10 +13,10 @@ public class DeckOfCards : MonoBehaviour {
 	public class Card{
 
 		public enum Suit {
-			SPADES, 	//0
-			CLUBS,		//1
-			DIAMONDS,	//2
-			HEARTS	 	//3
+			SPADES		= 0, 	//0
+			CLUBS		= 1,	//1
+			DIAMONDS	= 2,	//2
+			HEARTS		= 3,	//3
 		};
 
 		public enum Type {
@@ -53,7 +53,7 @@ public class DeckOfCards : MonoBehaviour {
 
 			switch(cardNum){
 			case Type.A:
-				val = 11;
+				val = 1;
 				break;
 			case Type.K:
 			case Type.Q:
@@ -80,7 +80,7 @@ public class DeckOfCards : MonoBehaviour {
 			AddCardsToDeck();
 		}
 
-		Debug.Log("Cards in Deck: " + deck.Count);
+//		Debug.Log("Cards in Deck: " + deck.Count);
 	}
 
 	protected virtual bool IsValidDeck(){

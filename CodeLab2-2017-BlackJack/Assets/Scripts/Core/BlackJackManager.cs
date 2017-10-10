@@ -48,7 +48,8 @@ public class BlackJackManager : MonoBehaviour {
 
 
 	public void BlackJack(){
-		GameOverText ("Black Jack!", myTextColors [1]);
+		GameOverText ("Rainbow Jack!", myTextColors [1]);
+		statusText.GetComponent<HR_RainbowText> ().enabled = true;
 		HidePlayerButtons();
 	}
 
@@ -75,5 +76,36 @@ public class BlackJackManager : MonoBehaviour {
 			handValue += handCard.GetCardHighValue();
 		}
 		return handValue;
+	}
+
+	public virtual bool CheckBusted (List<DeckOfCards.Card> hand) {
+		//count the card amount in each suit
+		int[] t_suitCounts = { 0, 0, 0, 0 }; 
+		foreach(DeckOfCards.Card handCard in hand){
+			int t_suitNum = (int)handCard.suit;
+//			Debug.Log (t_suitNum);
+			t_suitCounts [t_suitNum]++;
+			if (t_suitCounts [t_suitNum] >= 3)
+				return true;
+		}
+		return false;
+	}
+
+	public virtual bool CheckBlackJack (List<DeckOfCards.Card> hand) {
+		//count the card amount in each suit
+		int[] t_suitCounts = { 0, 0, 0, 0 }; 
+		foreach(DeckOfCards.Card handCard in hand){
+			int t_suitNum = (int)handCard.suit;
+			//			Debug.Log (t_suitNum);
+			t_suitCounts [t_suitNum]++;
+		}
+
+		//if numbers are the same, rainbowJack
+		if (t_suitCounts [0] == t_suitCounts [1] &&
+		   t_suitCounts [0] == t_suitCounts [2] &&
+		   t_suitCounts [0] == t_suitCounts [3])
+			return true;
+		
+		return false;
 	}
 }
