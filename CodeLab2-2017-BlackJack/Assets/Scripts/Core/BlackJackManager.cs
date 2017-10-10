@@ -7,6 +7,8 @@ using System.Collections.Generic;
 public class BlackJackManager : MonoBehaviour {
 
 	private static BlackJackManager instance = null;
+	private static int[] myScore = { 0, 0 };
+	[SerializeField] Text myScoreText;
 
 	public static BlackJackManager Instance {
 		get { 
@@ -20,6 +22,8 @@ public class BlackJackManager : MonoBehaviour {
 		} else {
 			instance = this;
 		}
+
+		ShowScore ();
 	}
 
 	public Text statusText;
@@ -30,24 +34,29 @@ public class BlackJackManager : MonoBehaviour {
 	public Color[] myCardColors = new Color[2];
 
 	public void PlayerBusted(){
+		myScore [1] += 1;
 		HidePlayerButtons();
 		GameOverText ("YOU BUST", myTextColors [0]);
 	}
 
 	public void DealerBusted(){
+		myScore [0] += 1;
 		GameOverText ("DEALER BUSTS!", myTextColors [1]);
 	}
 		
 	public void PlayerWin(){
+		myScore [0] += 1;
 		GameOverText ("YOU WIN!", myTextColors [1]);
 	}
 		
 	public void PlayerLose(){
+		myScore [1] += 1;
 		GameOverText ("YOU LOSE.", myTextColors [0]);
 	}
 
 
 	public void BlackJack(){
+		myScore [0] += 1;
 		GameOverText ("Rainbow Jack!", myTextColors [1]);
 		statusText.GetComponent<HR_RainbowText> ().enabled = true;
 		HidePlayerButtons();
@@ -58,6 +67,9 @@ public class BlackJackManager : MonoBehaviour {
 		statusText.color = color;
 
 		tryAgain.SetActive(true);
+
+		ShowScore ();
+		Debug.Log (myScore [0] + " " + myScore [1]);
 	}
 
 	public void HidePlayerButtons(){
@@ -107,5 +119,11 @@ public class BlackJackManager : MonoBehaviour {
 			return true;
 		
 		return false;
+	}
+
+	private void ShowScore () {
+		string t_str0 = myScore [0] == 0 ? "0" : myScore [0].ToString ("#");
+		string t_str1 = myScore [1] == 0 ? "0" : myScore [1].ToString ("#");
+		myScoreText.text = "Score\n" + t_str0 + ":" + t_str1;
 	}
 }
