@@ -20,8 +20,10 @@ public class Wife_Pile : MonoBehaviour {
 		var colors = GetComponent<Button>().colors;
 		colors.disabledColor = Color.white;
 		GetComponent<Button>().colors = colors;
-		
+
 		FindObjectOfType<ButtonManager>().Disable_all_button();
+		string phrase = FindObjectOfType<PickWives>().Get_String(wife);
+		FindObjectOfType<TextManager>().Set_Text(phrase);
 	}
 	
 }
