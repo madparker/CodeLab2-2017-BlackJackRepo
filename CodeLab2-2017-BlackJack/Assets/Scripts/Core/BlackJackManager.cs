@@ -10,6 +10,32 @@ public class BlackJackManager : MonoBehaviour {
 	public GameObject tryAgain;
 	public string loadScene;
 
+	public InputField playerBetInputField; //the input field where the player will type in their bet amount
+
+	public Text moneyText;
+	public Text betText;
+
+
+	private int money = 100; //the amount of money the player has left with which to bet
+	private int betAmount = 0; //the amount the player has bet
+	private int amountCurrentlyBet = 0;
+
+
+	void Start(){
+		moneyText.text = ("MONEY: $" + money);
+		betText.text = ("BET: $" + betAmount);
+	}
+
+	public void OnBet(){ //when the player hits the bet button with an amount entered into the input field
+		if(int.TryParse(playerBetInputField.text, out betAmount)){; //if the text they have entered is parsable into an int
+			betText.text = ("BET: $" + betAmount);
+			money -= betAmount;
+			moneyText.text = ("MONEY: $" + money);
+			Debug.Log ("Player bet $" + betAmount);
+		}
+	}
+
+
 	public void PlayerBusted(){
 		HidePlayerButtons();
 		GameOverText("YOU BUST", Color.red);
@@ -24,6 +50,7 @@ public class BlackJackManager : MonoBehaviour {
 	}
 		
 	public void PlayerLose(){
+		HidePlayerButtons();
 		GameOverText("YOU LOSE.", Color.red);
 	}
 
