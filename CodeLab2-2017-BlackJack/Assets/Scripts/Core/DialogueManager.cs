@@ -8,24 +8,29 @@ public class DialogueManager : MonoBehaviour {
 
     public GameObject playerDialogue;
     public GameObject dealerDialogue;
+    [Header("Dialogue For Intro")]
     public string[] dialogueLines;
+    [Header("Dialogue For Play")]
+    public string[] adviceLines;
+    public string[] winOrLoseLines;
     private char currentLetter;
     private bool startingDialogue;
     private bool readyForNextChar;
     private int charCount;
     private int lineIndex;
     private bool startingGame;
-    BlackJackManager manager;
 
     // Use this for initialization
     void Start () {
 
-        manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+
         playerDialogue.SetActive(false);
         dealerDialogue.SetActive(false);
-        //manager.HidePlayerButtons();
         GameObject death = GameObject.Find("Death");
-        death.GetComponent<Image>().color = new Color(0, 0, 0, 255);
+        if(SceneManager.GetActiveScene().name != "BlackjackHorror")
+        {
+            death.GetComponent<Image>().color = new Color(0, 0, 0, 255);
+        }
 
     }
 	
@@ -44,7 +49,7 @@ public class DialogueManager : MonoBehaviour {
 
     }
 
-    IEnumerator StartDialogue(float time, float textSpeed, int lineIndex, GameObject character, string[] lines)
+    public IEnumerator StartDialogue(float time, float textSpeed, int lineIndex, GameObject character, string[] lines)
     {
         charCount = 0;
         yield return new WaitForSeconds(time);
@@ -55,7 +60,7 @@ public class DialogueManager : MonoBehaviour {
             currentLetter = lines[lineIndex][charCount];
             character.GetComponentInChildren<Text>().text += currentLetter;
             StartCoroutine(WaitForChar(0, lineIndex, lines));
-            //yield return new WaitForSeconds(textSpeed);
+            yield return new WaitForSeconds(textSpeed);
             yield return null;
         }
         yield break;
@@ -72,7 +77,7 @@ public class DialogueManager : MonoBehaviour {
         else if (lineIndex == 2 || lineIndex == 6 || lineIndex == 12 || lineIndex == 16 || lineIndex == 24)
         {
             dealerDialogue.SetActive(false);
-            StartCoroutine(StartDialogue(0, 0.05f, lineIndex, playerDialogue, dialogueLines));
+            StartCoroutine(StartDialogue(0, 0, lineIndex, playerDialogue, dialogueLines));
         }
         else
         {

@@ -19,12 +19,10 @@ public class BlackJackHand : MonoBehaviour
     protected List<DeckOfCards.Card> hand;
     bool stay = false;
     BlackJackManager manager;
-    DialogueManager dialogueManager;
 
     // Use this for initialization
     void Start()
     {
-        dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
         SetupHand();
     }

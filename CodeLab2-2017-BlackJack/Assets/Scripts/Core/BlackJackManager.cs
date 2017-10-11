@@ -19,6 +19,12 @@ public class BlackJackManager : MonoBehaviour
     AudioSource source;
     public GameObject eyes;
     float timeElapsed;
+    DialogueManager dialogueManager;
+
+    void Start()
+    {
+        dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
+    }
 
     void Update()
     {
@@ -36,22 +42,31 @@ public class BlackJackManager : MonoBehaviour
     public void PlayerBusted()
     {
         HidePlayerButtons();
-        GameOverText("YOU BUST", Color.red);
+        StartCoroutine(dialogueManager.StartDialogue(0, 0, 2, dialogueManager.dealerDialogue, dialogueManager.winOrLoseLines));
+        tryAgain.SetActive(true);
+        //GameOverText("YOU BUST", Color.red);
     }
 
     public void DealerBusted()
     {
-        GameOverText("DEALER BUSTS!", Color.green);
+        StartCoroutine(dialogueManager.StartDialogue(0, 0, 3, dialogueManager.dealerDialogue, dialogueManager.winOrLoseLines));
+        tryAgain.SetActive(true);
+        //GameOverText("DEALER BUSTS!", Color.green);
     }
 
     public void PlayerWin()
     {
-        GameOverText("YOU WIN!", Color.green);
+        StartCoroutine(dialogueManager.StartDialogue(0, 0, 0, dialogueManager.dealerDialogue, dialogueManager.winOrLoseLines));
+        //GameOverText("YOU WIN!", Color.green);
+        tryAgain.SetActive(true);
     }
 
     public void PlayerLose()
     {
-        GameOverText("YOU LOSE.", Color.red);
+        StartCoroutine(dialogueManager.StartDialogue(0, 0, 1, dialogueManager.dealerDialogue, dialogueManager.winOrLoseLines));
+        tryAgain.SetActive(true);
+        //GameOverText("YOU LOSE.", Color.red);
+
     }
 
     public void PlayerDies()
@@ -112,6 +127,7 @@ public class BlackJackManager : MonoBehaviour
     {
         statusText.text = "";
         tryAgain.SetActive(false);
+        dialogueManager.dealerDialogue.SetActive(false);
         SceneManager.LoadScene(loadScene);
     }
 
