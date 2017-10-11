@@ -3,13 +3,13 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DeckOfCards : MonoBehaviour {
+public class Mod_DeckOfCards : MonoBehaviour {
 	
 	public Text cardNumUI;
 	public Image cardImageUI;
 	public Sprite[] cardSuits;
 
-	int deckNum = 4;
+	int deckNum = 1;
 	public static int cardsUsed = 0;
 	public static int remainingCards;
 
@@ -100,13 +100,16 @@ public class DeckOfCards : MonoBehaviour {
 
 	public static ShuffleBag<Card> deck;
 
-
+	ShuffleBag<Card> faceCards;
+	public List<Card> startFaces; 
 
 	// Use this for initialization
 	void Awake () {
 
+		DrawFaceCards ();
 		SetupDeck ();
 
+		print (deck.Count);
 
 
 	}
@@ -130,9 +133,20 @@ public class DeckOfCards : MonoBehaviour {
 			}
 		}
 
+		RemoveSelectedFaceCardsFromDeck ();
+
 	}
 
+	void RemoveSelectedFaceCardsFromDeck(){
+		for (int i = 0; i < startFaces.Count; i++) {
+			for (int d = 0; d < deck.Count; d++) {
+				if (startFaces [i].cardNum == deck [d].cardNum && startFaces [i].suit == deck [d].suit) {
+					deck.Remove (deck [d]);
+				}
+			}
 
+		}
+	}
 
 	public virtual Card DrawCard(){
 		//When card count falls below a minimum, the decks are reshuffled
@@ -170,7 +184,7 @@ public class DeckOfCards : MonoBehaviour {
 		if (!IsValidDeck ()) {
 			deck = new ShuffleBag<Card> ();
 			cardsUsed = 0;
-			DontDestroyOnLoad (transform.root.gameObject);
+//			DontDestroyOnLoad (transform.root.gameObject);
 			AddCardsToDeck ();
 
 
@@ -179,6 +193,34 @@ public class DeckOfCards : MonoBehaviour {
 		}
 	}
 
+	ShuffleBag<Card> SeparateFaceCards(){
+		 
+		faceCards = new ShuffleBag<Card> ();
+		for (int i = 0; i < deckNum; i++) {
+			foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))) {
+				foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))) {
+					if (type == Card.Type.J || type == Card.Type.K || type == Card.Type.Q)
+					faceCards.Add (new Card (type, suit));
+				}
+			}
+		}
+
+		return faceCards;
+	}
+
+	public List<Card> DrawFaceCards(){
+
+		startFaces = new List<Card> ();
+
+		faceCards =  SeparateFaceCards();
+
+		for (int i = 0; i < 3; i++) {
+			startFaces.Add (faceCards.Next ());
+		}
+
+		return startFaces;
+
+	}
 
 
 }
