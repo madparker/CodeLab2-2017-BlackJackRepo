@@ -8,7 +8,7 @@ public class DealerHand : BlackJackHand {
 
 	bool reveal;
 
-	protected override void SetupHand(){
+	public override void SetupHand(){
 		base.SetupHand();
 
 		GameObject cardOne = transform.GetChild(0).gameObject;

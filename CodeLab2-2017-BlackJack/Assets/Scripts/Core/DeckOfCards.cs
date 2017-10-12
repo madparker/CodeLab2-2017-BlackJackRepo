@@ -89,7 +89,7 @@ public class DeckOfCards : MonoBehaviour {
 		return deck != null; 
 	}
 
-	protected virtual void AddCardsToDeck(){
+	public virtual void AddCardsToDeck(){
 		for (int i = 0; i < 4; i++) { //here was the problem, needed to add this loop so that we get 4 decks worth of cards
 			foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))){
 				foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))){ //some problem here? this is virtual, wonder why

@@ -8,72 +8,136 @@ public class BlackJackManager : MonoBehaviour {
 
 	public Text statusText;
 	public GameObject tryAgain;
+
+	public GameObject restart;
+	public GameObject betUI;
+	public GameObject actionUI;
+
 	public string loadScene;
+
+	public BlackJackHand playerHand;
+	public DealerHand dealerHand;
+	public DeckOfCards deckOfCards;
+
 
 	public InputField playerBetInputField; //the input field where the player will type in their bet amount
 
-	public Text moneyText;
-	public Text betText;
+	public Text moneyText; //the ui text for diplaying money
+	public Text betText; //the ui text for displaying current bet
 
 
-	private int money = 100; //the amount of money the player has left with which to bet
+	private static int money = 100; //the amount of money the player has left with which to bet
 	private int betAmount = 0; //the amount the player has bet
-	private int amountCurrentlyBet = 0;
 
 
 	void Start(){
-		moneyText.text = ("MONEY: $" + money);
-		betText.text = ("BET: $" + betAmount);
+		UpdateMoneyText(); //set text to reflect starting values
 	}
 
 	public void OnBet(){ //when the player hits the bet button with an amount entered into the input field
 		if(int.TryParse(playerBetInputField.text, out betAmount)){; //if the text they have entered is parsable into an int
-			betText.text = ("BET: $" + betAmount);
-			money -= betAmount;
-			moneyText.text = ("MONEY: $" + money);
+			money -= betAmount; //subtract amount bet from money
+			UpdateMoneyText(); //update our text to reflect new bet/money values
 			Debug.Log ("Player bet $" + betAmount);
+
+			ToggleBetUI();
+			ToggleActionUI();
+
+			playerHand.SetupHand();
+			dealerHand.SetupHand();
+
 		}
+	}
+
+	public void UpdateMoneyText(){ //call this to update our money and bet texts
+		moneyText.text = ("MONEY: $" + money); //set money text 
+		betText.text = ("BET: $" + betAmount); //set bet text 
 	}
 
 
 	public void PlayerBusted(){
-		HidePlayerButtons();
+		betAmount = 0;
+		UpdateMoneyText();
+
+		ToggleActionUI();
 		GameOverText("YOU BUST", Color.red);
 	}
 
 	public void DealerBusted(){
+		money += (betAmount * 2);
+		betAmount = 0;
+		UpdateMoneyText();
+
+		ToggleActionUI();
 		GameOverText("DEALER BUSTS!", Color.green);
 	}
 		
 	public void PlayerWin(){
+		money += (betAmount * 2);
+		betAmount = 0;
+		UpdateMoneyText();
+
+		ToggleActionUI();
 		GameOverText("YOU WIN!", Color.green);
 	}
 		
 	public void PlayerLose(){
-		HidePlayerButtons();
+		betAmount = 0;
+		UpdateMoneyText();
+
+		ToggleActionUI();
 		GameOverText("YOU LOSE.", Color.red);
 	}
 
 
 	public void BlackJack(){ //this was never getting called, fixed this in ShowValue in BlackJackHand
+		money += (betAmount * 2);
+		betAmount = 0;
+		UpdateMoneyText();
+
 		GameOverText("Black Jack!", Color.green);
-		HidePlayerButtons();
+		ToggleActionUI();
 	}
 
 	public void GameOverText(string str, Color color){
-		statusText.text = str;
-		statusText.color = color;
-
-		tryAgain.SetActive(true);
+		if(money > 0){
+			statusText.text = str;
+			statusText.color = color;
+			tryAgain.SetActive(true);
+		} else {
+			statusText.text = ("GAME OVER");
+			statusText.color = Color.red;
+			restart.SetActive(true);
+		}
 	}
 
-	public void HidePlayerButtons(){
-		GameObject.Find("HitButton").SetActive(false);
-		GameObject.Find("StayButton").SetActive(false);
+	public void ToggleBetUI(){
+		if(betUI.activeSelf){
+			betUI.SetActive(false);
+		}else{
+			betUI.SetActive(true);
+		}
+	}
+
+	public void ToggleActionUI(){
+		if(actionUI.activeSelf){
+			actionUI.SetActive(false);
+		}else{
+			actionUI.SetActive(true);
+		}
 	}
 
 	public void TryAgain(){
 		SceneManager.LoadScene(loadScene);
+	}
+	
+	public void Restart(){ //this resets everything for a new game
+		money = 100; //sets money to starting value
+
+		DeckOfCards.deck.Clear();// clear the cards in the deck
+		deckOfCards.AddCardsToDeck(); //add a new set of cards to the deck from which to pull
+
+		SceneManager.LoadScene(loadScene); //reloads scene
 	}
 
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){

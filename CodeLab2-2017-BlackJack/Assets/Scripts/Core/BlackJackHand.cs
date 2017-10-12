@@ -17,11 +17,11 @@ public class BlackJackHand : MonoBehaviour {
 	bool stay = false;
 
 	// Use this for initialization
-	void Start () {
-		SetupHand();
-	}
+//	void Start () {
+//		SetupHand();
+//	}
 
-	protected virtual void SetupHand(){
+	public virtual void SetupHand(){
 		deck = GameObject.Find("Deck").GetComponent<DeckOfCards>();
 		hand = new List<DeckOfCards.Card>();
 		HitMe();
