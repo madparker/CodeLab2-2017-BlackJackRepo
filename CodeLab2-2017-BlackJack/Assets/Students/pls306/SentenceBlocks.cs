@@ -32,7 +32,7 @@ public class SentenceBlocks : MonoBehaviour {
 		"destroys",
 		"questions",
 		"circumvents",
-		"blasts",
+		"babysits",
 		"protects",
 		"remembers",
 		"sells",
@@ -43,14 +43,14 @@ public class SentenceBlocks : MonoBehaviour {
 	public string[] predicates = {
 		"a Toyota minivan filled with blue limbs.",
 		"a lumbering giant beset by existential distress.",
-		"a termite-infested Trojan Horse",
+		"a termite-infested Trojan Horse.",
 		"a gathering of Mozart acolytes.",
 		"a mass of dustmites under the dining table.",
 		"an airplane that prefers to be underground.",
 		"a labyrinthine office space on Madison Avenue.",
-		"a ten-storey-tall stack of Toblerone",
+		"a ten-storey-tall stack of Toblerone.",
 		"an unsolved murder case in Quezon City.",
-		"an empty concert hall north of the Great Wall",
+		"an empty concert hall north of the Great Wall.",
 		"a dictator whose advisor is an old librarian.",
 		"a dive bar that serves Moonshine distilled in the 1920s."
 	}; 
