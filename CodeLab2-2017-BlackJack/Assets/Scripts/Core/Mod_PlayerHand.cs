@@ -29,11 +29,7 @@ public class Mod_PlayerHand: MonoBehaviour {
 		HitMe();
 //		HitMe();
 
-		//If Player starts with 21, BlackJack is triggered automatically
-		if (handVals == BlackJackManager.blackJackValue) {
 
-			GameObject.Find ("BlackJackManager").GetComponent<BlackJackManager> ().BlackJack ();
-		}
 	}
 	
 

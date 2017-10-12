@@ -52,7 +52,7 @@ public class Mod_DeckOfCards : MonoBehaviour {
 		}
 
 		public override string ToString(){
-			return "The " + cardNum + " of " + suit;
+			return "The " + cardNum.ToString() + " of " + suit.ToString();
 		}
 
 		public int GetCardHighValue(){
