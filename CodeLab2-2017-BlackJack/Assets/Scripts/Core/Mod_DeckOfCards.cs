@@ -74,27 +74,7 @@ public class Mod_DeckOfCards : MonoBehaviour {
 
 			return val;
 		}
-
-		public int GetCardLowValue(){
-			int val;
-
-			switch(cardNum){
-			case Type.A:
-				val = 1;
-				break;
-			case Type.K:
-			case Type.Q:
-			case Type.J:
-				val = 10;
-				break;	
-			default:
-				val = (int)cardNum;
-				break;
-			}
-
-			return val;
-		}
-
+			
 	
 	}
 
@@ -106,7 +86,7 @@ public class Mod_DeckOfCards : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-		DrawFaceCards ();
+//		DrawFaceCards ();
 		SetupDeck ();
 
 		print (deck.Count);
@@ -150,9 +130,9 @@ public class Mod_DeckOfCards : MonoBehaviour {
 
 	public virtual Card DrawCard(){
 		//When card count falls below a minimum, the decks are reshuffled
-		if (remainingCards <= cardCountMin) {
-			deck = null;
-			SetupDeck ();
+		if (remainingCards <= 0) {
+//			deck = null;
+			Debug.Log("No More Cards");
 		}
 	
 		//Draws card
@@ -162,6 +142,7 @@ public class Mod_DeckOfCards : MonoBehaviour {
 		//Tracks how many cards have been used
 		cardsUsed++;
 		remainingCards = deck.Count - cardsUsed;
+		print (nextCard.ToString());
 
 		return nextCard;
 	}
@@ -185,12 +166,11 @@ public class Mod_DeckOfCards : MonoBehaviour {
 			deck = new ShuffleBag<Card> ();
 			cardsUsed = 0;
 //			DontDestroyOnLoad (transform.root.gameObject);
-			AddCardsToDeck ();
+//			AddCardsToDeck ();
+			deck = SeparateFaceCards ();
 
 
-		} else {
-			Destroy (transform.gameObject);
-		}
+		} 
 	}
 
 	ShuffleBag<Card> SeparateFaceCards(){
@@ -221,6 +201,7 @@ public class Mod_DeckOfCards : MonoBehaviour {
 		return startFaces;
 
 	}
+		
 
 
 }

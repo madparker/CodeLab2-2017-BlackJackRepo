@@ -27,7 +27,7 @@ public class Mod_PlayerHand: MonoBehaviour {
 		deck = GameObject.Find("Deck").GetComponent<Mod_DeckOfCards>();
 		hand = new List<Mod_DeckOfCards.Card>();
 		HitMe();
-		HitMe();
+//		HitMe();
 
 		//If Player starts with 21, BlackJack is triggered automatically
 		if (handVals == BlackJackManager.blackJackValue) {

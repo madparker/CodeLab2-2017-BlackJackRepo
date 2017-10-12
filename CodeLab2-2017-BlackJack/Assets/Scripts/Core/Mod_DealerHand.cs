@@ -11,6 +11,8 @@ public class Mod_DealerHand : Mod_PlayerHand {
 	protected override void SetupHand(){
 		base.SetupHand();
 
+		//Need to make all cards Hidden
+
 		GameObject cardOne = transform.GetChild(0).gameObject;
 		cardOne.GetComponentInChildren<Text>().text = "";
 		cardOne.GetComponentsInChildren<Image>()[0].sprite = cardBack;
