@@ -112,11 +112,11 @@ public class DeckOfCards : MonoBehaviour {
 		Card nextCard = deck.Next();
         cardCount -= 1;
         Debug.Log("card count " + cardCount);
-        if (cardCount <= 20)
+        if (cardCount <= 0)
         {
             deck.Clear();
             AddCardsToDeck();
-            cardCount = 188;
+            cardCount = 208;
         }
 		return nextCard;
 	}

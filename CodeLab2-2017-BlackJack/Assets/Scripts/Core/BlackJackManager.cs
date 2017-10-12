@@ -60,7 +60,7 @@ public class BlackJackManager : MonoBehaviour {
                 hasAnAce = true;
             }
         }
-        if (handValue >= 21 && hasAnAce)
+        if (handValue > 21 && hasAnAce)
         {
             handValue -= 10;
             hasAnAce = false;
