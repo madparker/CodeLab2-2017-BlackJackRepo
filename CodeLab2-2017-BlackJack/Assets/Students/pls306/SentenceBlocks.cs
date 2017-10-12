@@ -10,7 +10,7 @@ public class SentenceBlocks : MonoBehaviour {
 
 	public static ShuffleBag<string> predicateBag;
 
-	public string[] subjects = { 
+	string[] subjects = { 
 		"A stray electron", 
 		"A disillusioned Supreme Court Justice",
 		"A portly gym trainer",
@@ -25,7 +25,7 @@ public class SentenceBlocks : MonoBehaviour {
 		"A 90-year-old drag queen"		
 	};
 
-	public string[] verbs = {
+	string[] verbs = {
 		"navigates",
 		"ushers in",
 		"prevents",
@@ -40,7 +40,7 @@ public class SentenceBlocks : MonoBehaviour {
 		"converses with"
 	};
 
-	public string[] predicates = {
+	string[] predicates = {
 		"a Toyota minivan filled with blue limbs.",
 		"a lumbering giant beset by existential distress.",
 		"a termite-infested Trojan Horse.",
