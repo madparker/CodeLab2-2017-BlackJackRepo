@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 72a3cdb61322f45af9155ec695a316ae
+timeCreated: 1507580955
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Bit6
+  fontNames:
+  - Bit6
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

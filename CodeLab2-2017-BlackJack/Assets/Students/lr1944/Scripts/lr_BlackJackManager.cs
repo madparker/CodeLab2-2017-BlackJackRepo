@@ -5,7 +5,7 @@ using UnityEngine;
 public class lr_BlackJackManager : BlackJackManager {
 
 	// fix to make value of ace to 1 if hand value goes > 21
-	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
+	public override int GetHandValue(List<DeckOfCards.Card> hand){
 		int handValue = 0;
 		int nrAces = 0;
 

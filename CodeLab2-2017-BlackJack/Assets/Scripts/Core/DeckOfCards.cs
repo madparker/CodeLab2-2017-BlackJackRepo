@@ -43,6 +43,10 @@ public class DeckOfCards : MonoBehaviour {
 			this.suit = suit;
 		}
 
+		public Card(){
+			//just empty for child class shenenigans
+		}
+
 		public override string ToString(){
 			return "The " + cardNum + " of " + suit;
 		}
@@ -71,7 +75,7 @@ public class DeckOfCards : MonoBehaviour {
 	public static ShuffleBag<Card> deck;
 
 	// Use this for initialization
-	void Awake () {
+	protected virtual void Awake () {
 
 		if(!IsValidDeck()){
 			deck = new ShuffleBag<Card>();
