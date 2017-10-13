@@ -12,6 +12,7 @@ public class BlackJackManager : MonoBehaviour {
 	public GameObject restart;
 	public GameObject betUI;
 	public GameObject actionUI;
+	public GameObject doubleDownUI;
 
 	public string loadScene;
 
@@ -21,6 +22,7 @@ public class BlackJackManager : MonoBehaviour {
 
 
 	public InputField playerBetInputField; //the input field where the player will type in their bet amount
+	public InputField doubleDownInputField; //the input field where the player will type in their double down amount 
 
 	public Text moneyText; //the ui text for diplaying money
 	public Text betText; //the ui text for displaying current bet
@@ -36,16 +38,52 @@ public class BlackJackManager : MonoBehaviour {
 
 	public void OnBet(){ //when the player hits the bet button with an amount entered into the input field
 		if(int.TryParse(playerBetInputField.text, out betAmount)){; //if the text they have entered is parsable into an int
-			money -= betAmount; //subtract amount bet from money
-			UpdateMoneyText(); //update our text to reflect new bet/money values
-			Debug.Log ("Player bet $" + betAmount);
+			if(betAmount > money){ //if the player bet more than they have
+				statusText.text = ("NOT ENOUGH $$"); //tell them the don't have enough
+				statusText.color = Color.red;
+			}else { //if they have enough to make the bet
+				statusText.text = (""); //clear status text in case they didn't have enough
+				money -= betAmount; //subtract amount bet from money
+				UpdateMoneyText(); //update our text to reflect new bet/money values
+				Debug.Log ("Player bet $" + betAmount);
 
-			ToggleBetUI();
-			ToggleActionUI();
+				ToggleBetUI(); //toggle off the bet UI
+				ToggleActionUI();//toggle on the player action UI
 
-			playerHand.SetupHand();
-			dealerHand.SetupHand();
+				playerHand.SetupHand();// setup the player and dealer hands
+				dealerHand.SetupHand();
+			}
 
+		}
+	}
+
+	public void OnDoubleDown(){
+		int oldBet = betAmount; //store the value of the original bet
+		Debug.Log ("Old bet was: " + oldBet);
+		if(int.TryParse(doubleDownInputField.text, out betAmount)){; //if the text they have entered is parsable into an int, set that as the value of the bet
+			if(betAmount > money){ //if the player bet more than they have
+				
+				Debug.Log ("Tried to bet: " + betAmount);
+				Debug.Log ("Not enough money for bet");
+				statusText.text = ("NOT ENOUGH $$"); //tell them the don't have enough
+				statusText.color = Color.red;
+			}else if(betAmount > oldBet){ //if the new bet amount is more than their original bat, tell them it's too high
+				
+				Debug.Log ("Tried to bet: " + betAmount);
+				statusText.text = ("BET TOO HIGH"); 
+				statusText.color = Color.red;
+			}else{
+				money -= betAmount; //subtract the new amount bet from money
+				betAmount += oldBet; //add the old bet to the new bet to reflect the total amount bet
+				UpdateMoneyText(); //update our text to reflect new bet/money values
+				Debug.Log ("Player bet $" + betAmount);
+
+				ToggleDoubleDownUI(); //toggle off the double down UI;
+				ToggleActionUI();
+
+				playerHand.Invoke("HitMe", 1);
+				dealerHand.Invoke("RevealCard", 1);
+			}
 		}
 	}
 
@@ -68,7 +106,6 @@ public class BlackJackManager : MonoBehaviour {
 		betAmount = 0;
 		UpdateMoneyText();
 
-		ToggleActionUI();
 		GameOverText("DEALER BUSTS!", Color.green);
 	}
 		
@@ -77,7 +114,7 @@ public class BlackJackManager : MonoBehaviour {
 		betAmount = 0;
 		UpdateMoneyText();
 
-		ToggleActionUI();
+
 		GameOverText("YOU WIN!", Color.green);
 	}
 		
@@ -85,7 +122,6 @@ public class BlackJackManager : MonoBehaviour {
 		betAmount = 0;
 		UpdateMoneyText();
 
-		ToggleActionUI();
 		GameOverText("YOU LOSE.", Color.red);
 	}
 
@@ -95,8 +131,8 @@ public class BlackJackManager : MonoBehaviour {
 		betAmount = 0;
 		UpdateMoneyText();
 
-		GameOverText("Black Jack!", Color.green);
 		ToggleActionUI();
+		GameOverText("BLACK JACK!", Color.green);
 	}
 
 	public void GameOverText(string str, Color color){
@@ -124,6 +160,15 @@ public class BlackJackManager : MonoBehaviour {
 			actionUI.SetActive(false);
 		}else{
 			actionUI.SetActive(true);
+		}
+	}
+
+	public void ToggleDoubleDownUI(){
+		if(doubleDownUI.activeSelf){
+			doubleDownUI.SetActive(false);
+			statusText.text = ("");
+		}else{
+			doubleDownUI.SetActive(true);
 		}
 	}
 
