@@ -14,6 +14,7 @@ public class MoneyManager : MonoBehaviour {
 
 	public Text dealerMoneyAmount;
 	public Text playerMoneyAmount;
+	public Text betAmount;
 
 	void Awake () {
 		if (instance == null)
@@ -46,6 +47,7 @@ public class MoneyManager : MonoBehaviour {
 		//Display amount of money held by player and dealer
 		dealerMoneyAmount.text = "DEALER: " + dealerMoney.ToString();
 		playerMoneyAmount.text = "PLAYER: " + playerMoney.ToString();
+		betAmount.text = "BET: " + bet.ToString();
 
 	}
 
