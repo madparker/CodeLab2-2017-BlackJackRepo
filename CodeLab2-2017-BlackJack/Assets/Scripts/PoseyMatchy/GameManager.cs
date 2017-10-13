@@ -11,9 +11,21 @@ public class GameManager : MonoBehaviour {
 	public float currentTimer;
 	public float maxTimer;
 
+	public float score;
+	public float baseValue;
+	public float firstMulti;
+	public float secondMulti;
+	public float thirdMulti;  
+	public float multiplier;
+	public int inARow;
+	float valueOfMatch;
 	public Image player;
+	Text scoreDisplay;
+	Text multiplierDisplay;
+	Text inARowDisplay;
 	public Image [] bandMates;
 	public Image choreographer; 
+	Image timeMeter;
 
 
 	void Awake () 
@@ -32,6 +44,10 @@ public class GameManager : MonoBehaviour {
 	{
 		player = GameObject.Find ("PlayerIcon").GetComponent<Image> ();
 		choreographer = GameObject.Find ("Choreographer").GetComponent<Image> ();
+		timeMeter = GameObject.Find ("TimeMeter").GetComponent<Image> ();
+		scoreDisplay = GameObject.Find ("Score").GetComponent<Text> ();
+		multiplierDisplay = GameObject.Find ("Multiplier").GetComponent<Text> ();
+		inARowDisplay = GameObject.Find ("In a Row").GetComponent<Text> ();
 		for (int i = 0; i < bandMates.Length; i++) 
 		{
 			bandMates[i] = GameObject.Find("BandMate_" + i).GetComponent<Image>();
@@ -40,15 +56,18 @@ public class GameManager : MonoBehaviour {
 
 	void Update () 
 	{
-		if (Input.GetKeyDown (KeyCode.Space)) 
-		{
+		valueOfMatch = baseValue * multiplier;
+		if (Input.GetKeyDown (KeyCode.Space)) {
 			GetNewPose ();
 		}
 		choreographer.sprite = currentPose;
-		for (int i = 0; i < bandMates.Length; i++) 
-		{
-			bandMates [i].sprite = currentPose;
+		for (int i = 0; i < bandMates.Length; i++) {
+		bandMates [i].sprite = currentPose;
 		}
+		playerInput ();
+		handleTimer ();
+		UIDisplay ();
+		handleMultiplier ();
 	}
 
 	bool IsValidBag()
@@ -59,5 +78,68 @@ public class GameManager : MonoBehaviour {
 	void GetNewPose()
 	{
 		currentPose = poseBag.Next ();
+	}
+
+	void playerInput ()
+	{
+		if (Input.GetKeyDown (KeyCode.RightArrow)) 
+		{
+			changePlayerPose (0);
+		}
+		if (Input.GetKeyDown (KeyCode.DownArrow)) 
+		{
+			changePlayerPose (1);
+		}
+		if (Input.GetKeyDown (KeyCode.LeftArrow)) 
+		{
+			changePlayerPose (2);
+		}
+		if (Input.GetKeyDown (KeyCode.UpArrow)) 
+		{
+			changePlayerPose (3);
+		}
+	}
+
+	void changePlayerPose(int sent)
+	{
+		player.sprite = poses [sent];
+	}
+
+	void handleTimer()
+	{
+		currentTimer = currentTimer - Time.deltaTime;
+		timeMeter.fillAmount = currentTimer / maxTimer;
+		if (currentTimer <= 0) 
+		{
+			if (player.sprite == choreographer.sprite) {
+				score += valueOfMatch;
+				inARow++;
+			} else {
+				inARow = 0;
+			}
+			GetNewPose ();
+			currentTimer = maxTimer;
+		}
+	}
+
+	void UIDisplay ()
+	{
+		scoreDisplay.text = "SCORE: " + score.ToString ();
+		multiplierDisplay.text = "MULTIPLIER: X" + multiplier.ToString ();
+		inARowDisplay.text = "IN A ROW: " + inARow.ToString ();
+	}
+
+	void handleMultiplier ()
+	{
+		if (inARow < firstMulti) {
+			multiplier = 1;
+		} else if (inARow >= firstMulti && inARow < secondMulti) {
+			multiplier = 2;
+		} else if (inARow >= secondMulti && inARow < thirdMulti) {
+			multiplier = 3;
+		} else if (inARow >= thirdMulti) 
+		{
+			multiplier = 4;
+		}
 	}
 }
