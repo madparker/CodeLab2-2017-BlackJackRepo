@@ -7,7 +7,7 @@ public class DealerHand : BlackJackHand
 
     public Sprite cardBack;
 
-    bool reveal;
+    public bool reveal;
 
     protected override void SetupHand()
     {

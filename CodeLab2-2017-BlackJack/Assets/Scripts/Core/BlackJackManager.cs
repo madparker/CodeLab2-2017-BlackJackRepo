@@ -23,6 +23,7 @@ public class BlackJackManager : MonoBehaviour
 
     void Start()
     {
+        
         dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
     }
 
@@ -141,6 +142,9 @@ public class BlackJackManager : MonoBehaviour
 
     public virtual int GetHandValue(List<DeckOfCards.Card> hand)
     {
+        //get a reference to the dealer
+        DealerHand dealer;
+        dealer = GameObject.Find("Dealer Hand Value").GetComponent<DealerHand>();
         handValue = 0;
 
         foreach (DeckOfCards.Card handCard in hand)
@@ -168,6 +172,14 @@ public class BlackJackManager : MonoBehaviour
                     handValue += handCard.GetCardHighValue();
                 }
             }
+        }
+        if(handValue > 13 && dealer.handVals <= 6 && !dealer.reveal)
+        {
+            string[] tempStrings = new string[1]
+            {
+                "With a " + dealer.handVals + " showing, maybe you should stay."
+            };
+            StartCoroutine(dialogueManager.StartDialogue(0, 0, 0, dialogueManager.dealerDialogue, tempStrings));
         }
         return handValue;
     }
