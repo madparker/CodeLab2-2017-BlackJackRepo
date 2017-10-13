@@ -32,9 +32,12 @@ public class DealerHand : BlackJackHand {
 				total.text = "Dealer: " + handVals;
 
 				BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+				MoneyManager moneyManager = GameObject.Find("MoneyManager").GetComponent<MoneyManager>();
 
 				if(handVals > 21){
 					manager.DealerBusted();
+					moneyManager.playerMoney += moneyManager.bet;
+					moneyManager.dealerMoney -= moneyManager.bet;
 				} else if(!DealStay(handVals)){ //if the dealer's hand is not greater than 17
 					Invoke("HitMe", 1); //dealer hits
 				} else {
@@ -42,8 +45,12 @@ public class DealerHand : BlackJackHand {
 
 					if(handVals < playerHand.handVals){
 						manager.PlayerWin();
+						moneyManager.playerMoney += moneyManager.bet;
+						moneyManager.dealerMoney -= moneyManager.bet;
 					} else {
 						manager.PlayerLose();
+						moneyManager.playerMoney -= moneyManager.bet;
+						moneyManager.dealerMoney += moneyManager.bet;
 					}
 				}
 			}

@@ -112,9 +112,24 @@ public class DeckOfCards : MonoBehaviour {
 	void Update () {
 	}
 
+	//int i = 0;
+
 	public virtual Card DrawCard(){
 		Card nextCard = deck.Next();
-		//deck.RemoveAt(nextCard);
+		deck.Remove(nextCard);
+
+		/* makes sure that every other card will be a king or seven
+		if (if i % 2 == 0) {
+			nextCard = new Card(Card.Type.K, Card.Suit.DIAMONDS);
+		} else {
+			nextCard = new Card(Card.Type.SEVEN, Card.Suit.DIAMONDS);
+		} 
+
+		i++
+
+		//remember to turn on the int i variable above this function
+		*/
+
 		return nextCard;
 	}
 

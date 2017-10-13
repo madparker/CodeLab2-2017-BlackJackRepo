@@ -10,6 +10,25 @@ public class BlackJackManager : MonoBehaviour {
 	public GameObject tryAgain;
 	public string loadScene;
 
+	/*
+	void Start () {
+		ShowGameInstructionsText ("Welcome to BlackJack!", Color.green);
+		StartCoroutine(WaitForText(2));
+		ShowGameInstructionsText ("Press the Up Arrow to increase your bet.", Color.green);
+		StartCoroutine(WaitForText(2));
+		ShowGameInstructionsText ("Press the Down Arrow to decrease your bet.", Color.green);
+		StartCoroutine(WaitForText(2));
+		ShowGameInstructionsText ("Press the Return key to place your bet.", Color.green);
+		StartCoroutine(WaitForText(2));
+	} */
+
+	IEnumerator WaitForText(int p)
+    {
+		Time.timeScale = 0.1f;
+    	yield return new WaitForSeconds(p);
+    	Time.timeScale = 1;
+    }
+
 	public void PlayerBusted(){
 		HidePlayerButtons();
 		GameOverText("YOU BUST", Color.red);
@@ -39,6 +58,11 @@ public class BlackJackManager : MonoBehaviour {
 		statusText.color = color;
 
 		tryAgain.SetActive(true);
+	}
+
+	public void showText(string str, Color color) {
+		statusText.text = str;
+		statusText.color = color;
 	}
 
 	public void HidePlayerButtons(){
@@ -78,4 +102,32 @@ public class BlackJackManager : MonoBehaviour {
 		handValue = nonAceTotal; //set handValue = to nonAceTotal
 		return handValue;
 	}
+
+	void ShowGameInstructionsText (string str, Color color) {
+		statusText.text = str;
+		statusText.color = color;
+
+		/*
+		print ("========================");
+		print ("Welcome to BlackJack");
+		print ("Use the Up Arrow to increase your bet.");
+		print ("Use the Down Arrow to decrease your bet.");
+		print ("Press Return when you're ready to play.");
+		print ("Would you like to place a bet?");     */
+	}
+
+	/* public void MoveMoney () {
+		if (PlayerWin()) {
+			playerMoney -= bet;
+			dealerMoney += bet;
+		} else if (PlayerLose()) {
+			playerMoney -= bet;
+			dealerMoney += bet;
+		}
+
+		if (playerMoney < 50) {
+			HidePlayerButtons();
+			GameOverText("YOU DON'T HAVE ENOUGH TO BET, LOSER!", Color.red);
+		}
+	} */
 }
