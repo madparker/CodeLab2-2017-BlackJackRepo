@@ -15,15 +15,23 @@ public class Mod_DealerHand : Mod_PlayerHand {
 
 		HitMe();
 
-		//Need to make all cards Hidden
 
-		GameObject cardOne = transform.GetChild(0).gameObject;
+
+	}
+
+	protected override void HitMe ()
+	{
+		base.HitMe ();
+		HideCards (hand.Count-1);
+	}
+
+	void HideCards(int index){
+		GameObject cardOne = transform.GetChild(index).gameObject;
 		cardOne.GetComponentInChildren<Text>().text = "";
 		cardOne.GetComponentsInChildren<Image>()[0].sprite = cardBack;
 		cardOne.GetComponentsInChildren<Image>()[1].enabled = false;
 
 		reveal = false;
-
 	}
 		
 //	protected override void ShowValue(){
@@ -70,15 +78,7 @@ public class Mod_DealerHand : Mod_PlayerHand {
 
 //		ShowValue();
 	}
-
-
-	void Update(){
-		for (int i = 0; i < hand.Count; i++) {
-			print (hand [i].suit);
-		}
-
-		Debug.Log(Mod_GameManager.flopHand.Count);
-	}
+		
 
 
 }

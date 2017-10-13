@@ -14,7 +14,6 @@ public class Mod_DeckOfCards : MonoBehaviour {
 	public static int remainingCards;
 
 
-	int cardCountMin = 20;
 
 	//Inner Class
 	public class Card{
@@ -89,7 +88,8 @@ public class Mod_DeckOfCards : MonoBehaviour {
 //		DrawFaceCards ();
 		SetupDeck ();
 
-		print (deck.Count);
+
+		remainingCards = deck.Count;
 
 
 	}
@@ -129,10 +129,15 @@ public class Mod_DeckOfCards : MonoBehaviour {
 	}
 
 	public virtual Card DrawCard(){
-		//When card count falls below a minimum, the decks are reshuffled
+		//When card count falls below a minimum, the decks are 
 		if (remainingCards <= 0) {
+			
 //			deck = null;
 			Debug.Log("No More Cards");
+
+			GameObject.Find ("GameManager").GetComponent<Mod_GameManager> ().PromptGuess ();
+			return null;
+
 		}
 	
 		//Draws card
@@ -162,15 +167,11 @@ public class Mod_DeckOfCards : MonoBehaviour {
 
 	void SetupDeck(){
 
-		if (!IsValidDeck ()) {
-			deck = new ShuffleBag<Card> ();
-			cardsUsed = 0;
-//			DontDestroyOnLoad (transform.root.gameObject);
-//			AddCardsToDeck ();
-			deck = SeparateFaceCards ();
+		deck = new ShuffleBag<Card> ();
+		deck = SeparateFaceCards ();
+		cardsUsed = 0;
 
-
-		} 
+	
 	}
 
 	ShuffleBag<Card> SeparateFaceCards(){
