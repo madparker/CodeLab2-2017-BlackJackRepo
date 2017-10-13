@@ -10,6 +10,30 @@ public class BlackJackManager : MonoBehaviour {
 	public GameObject tryAgain;
 	public string loadScene;
 
+	float waitForText = 2f;
+	int numberOfIfs = 0;
+
+	void Start () {
+		statusText.color = Color.green;
+		statusText.text = "Welcome to BlackJack! Ready to lose all your money?";
+	}
+
+	void Update () {
+		//print(Time.deltaTime * 10);
+
+		waitForText -= Time.deltaTime;
+
+		if (waitForText <= 0f) {
+			print("FUCKKK YEAHHH");
+
+			numberOfIfs++;
+
+			ShowGameInstructionsText(numberOfIfs);
+
+			waitForText = 2f;
+		}
+	}
+
 	/*
 	void Start () {
 		ShowGameInstructionsText ("Welcome to BlackJack!", Color.green);
@@ -103,17 +127,25 @@ public class BlackJackManager : MonoBehaviour {
 		return handValue;
 	}
 
-	void ShowGameInstructionsText (string str, Color color) {
-		statusText.text = str;
-		statusText.color = color;
+	void ShowGameInstructionsText (int num) {
 
-		/*
-		print ("========================");
-		print ("Welcome to BlackJack");
-		print ("Use the Up Arrow to increase your bet.");
-		print ("Use the Down Arrow to decrease your bet.");
-		print ("Press Return when you're ready to play.");
-		print ("Would you like to place a bet?");     */
+		statusText.color = Color.green;
+
+		switch (num) 
+		{
+			case 1: 
+				statusText.text = "Use the Up Arrow to increase your bet.";
+				break;
+			case 2:
+				statusText.text = "Use the Down Arrow to decrease your bet.";
+				break;
+			case 3:
+				statusText.text = "Press return to place your bet.";
+				break;
+			default:
+				statusText.text = "";
+				break;
+		}
 	}
 
 	/* public void MoveMoney () {

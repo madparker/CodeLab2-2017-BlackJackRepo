@@ -37,8 +37,8 @@ public class MoneyManager : MonoBehaviour {
 			//
 		} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
 			// print("Down arrow pressed");
-			if (minimumBet >= 100) {
-				minimumBet -= bet;
+			if (bet >= 100) {
+				bet -= minimumBet;
 			} else if (Input.GetKeyDown(KeyCode.Return)) {
 				print("You have placed a bet of " + bet + " dollars.");
 			}
