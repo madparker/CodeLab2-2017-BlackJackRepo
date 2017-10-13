@@ -47,6 +47,7 @@ public class RussianRouletteTurn : MonoBehaviour {
         //drop out
         //no longer can shoot keeps points if dealer drops 
         //but if dealer shoots and wins steals your points
+        _manager.DropOut();
     }
 
 
