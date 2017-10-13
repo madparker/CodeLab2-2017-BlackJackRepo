@@ -10,6 +10,12 @@ public class ButtonManager : MonoBehaviour {
 		Button_list.AddRange(FindObjectsOfType<Button>());
 	}
 
+	void Update () {
+		if(Input.GetKeyDown(KeyCode.Space)){
+			UnityEngine.SceneManagement.SceneManager.LoadScene("SC_PickYourWife");
+		}
+	}
+
 	public void Disable_all_button(){
 		foreach(Button a_button in Button_list){
 			a_button.interactable = false;
