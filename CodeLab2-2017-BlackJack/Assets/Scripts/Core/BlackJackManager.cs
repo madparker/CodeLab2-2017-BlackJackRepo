@@ -49,7 +49,7 @@ public class BlackJackManager : MonoBehaviour {
 
 	public void HidePlayerButtons(){
 		GameObject.Find("HitButton").SetActive(false);
-		GameObject.Find("StayButton").SetActive(false);
+        GameObject.Find("StayButton").SetActive(false);
 	}
 
 	public void TryAgain(){
