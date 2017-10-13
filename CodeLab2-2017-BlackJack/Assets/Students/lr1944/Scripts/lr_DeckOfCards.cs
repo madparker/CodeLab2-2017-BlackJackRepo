@@ -6,7 +6,7 @@ public class lr_DeckOfCards : DeckOfCards {
 
 	// fix to reshuffe when deck only has 20 cards left
 	int decksToUse = 4;
-	int specialDecksToUse = 10;
+	int specialDecksToUse = 15;
 
 
 
@@ -26,15 +26,19 @@ public class lr_DeckOfCards : DeckOfCards {
 	public class SpecialCard : Card{
 
 		public enum SpecialSuit {
-			SPECIAL
+			PLUSCARDS,
+			MULTIPLY,
+			MINUSVALUE,
+
 		};
 
 		public enum SpecialType {
-			PLUS1 = 0,
-			PLUS2 = 0,
-			PLUS3 = 0,
-			PLUS4 = 0,
+			TWO = 2,
+			THREE = 3,
+			FOUR = 4,
+			FIVE = 5,
 		};
+			
 
 		public SpecialType spcCardNum;
 
@@ -46,7 +50,15 @@ public class lr_DeckOfCards : DeckOfCards {
 		}
 
 		public override string ToString (){
-			return "The " + cardNum + " of " + suit;
+			return "The " + spcCardNum + " of " + spcSuit;
+		}
+
+		public int GetSpecialCardHighValue(){
+			int val;
+
+			val = (int)spcCardNum;
+
+			return val;
 		}
 
 		public int GetHighValue() {
@@ -68,12 +80,14 @@ public class lr_DeckOfCards : DeckOfCards {
 	}
 
 
-	// fix to use 4 decks of cards
+	// fix to use 4 decks of cards + special cards changes
 	protected override void AddCardsToDeck(){
 		foreach (SpecialCard.SpecialSuit specialSuit in SpecialCard.SpecialSuit .GetValues(typeof(SpecialCard.SpecialSuit))){
-			foreach (SpecialCard.Type specialType in SpecialCard.Type.GetValues(typeof(SpecialCard.SpecialType))){
-				for (int i = 0; i < decksToUse; i++) {
-//					deck.Add (new SpecialCard (null, null, specialType, specialSuit));
+			foreach (SpecialCard.SpecialType specialType in SpecialCard.SpecialType.GetValues(typeof(SpecialCard.SpecialType))){
+				for (int i = 0; i < specialDecksToUse; i++) {
+					deck.Add (new SpecialCard (specialType, specialSuit));
+
+//					Debug.Log("special card added");
 				}
 			}
 		}
@@ -86,5 +100,20 @@ public class lr_DeckOfCards : DeckOfCards {
 			}
 		}
 	}
+
+	//added for special cards
+
+	public string GetSpecialNumberString(SpecialCard card){
+		
+		return card.spcCardNum.GetHashCode() +"";
+		
+	}
+
+	public Sprite GetSpecialSuitSprite(SpecialCard card){
+//		Debug.Log(cardSuits[card.spcSuit.GetHashCode()]);
+		return cardSuits[card.spcSuit.GetHashCode()+4];
+
+	}
+		
 
 }

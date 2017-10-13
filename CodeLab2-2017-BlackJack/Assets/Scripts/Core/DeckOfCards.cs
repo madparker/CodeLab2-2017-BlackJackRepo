@@ -98,12 +98,11 @@ public class DeckOfCards : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	}
+
 
 	public virtual Card DrawCard(){
 		Card nextCard = deck.Next();
+
 		return nextCard;
 	}
 
@@ -119,4 +118,7 @@ public class DeckOfCards : MonoBehaviour {
 	public Sprite GetSuitSprite(Card card){
 		return cardSuits[card.suit.GetHashCode()];
 	}
+
+
+
 }

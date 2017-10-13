@@ -12,8 +12,9 @@ public class BlackJackHand : MonoBehaviour {
 	public GameObject handBase;
 	public int handVals;
 
-	protected DeckOfCards deck;
-	protected List<DeckOfCards.Card> hand;
+	protected lr_DeckOfCards deck;
+	protected List<lr_DeckOfCards.Card> hand;
+//	protected List<lr_DeckOfCards.SpecialCard> specialHand;
 	bool stay = false;
 
 	// Use this for initialization
@@ -22,31 +23,35 @@ public class BlackJackHand : MonoBehaviour {
 	}
 
 	protected virtual void SetupHand(){
-		deck = GameObject.Find("Deck").GetComponent<DeckOfCards>();
-		hand = new List<DeckOfCards.Card>();
+		deck = GameObject.Find("Deck").GetComponent<lr_DeckOfCards>();
+		hand = new List<lr_DeckOfCards.Card>();
+
+//		specialHand = new List<lr_DeckOfCards.SpecialCard>();
 		HitMe();
 		HitMe();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	}
+
 
 	public void HitMe(){
 		if(!stay){
-			DeckOfCards.Card card = deck.DrawCard();
+			lr_DeckOfCards.Card card = deck.DrawCard();
+			Debug.Log ("is being hit");
 
 			GameObject cardObj = Instantiate(Resources.Load("prefab/Card")) as GameObject;
 
 			ShowCard(card, cardObj, hand.Count);
 
-			hand.Add(card);
+//			if (!(card is lr_DeckOfCards.SpecialCard)) {
+				
+				hand.Add (card);
+//			}
 
 			ShowValue();
 		}
 	}
 
-	protected void ShowCard(DeckOfCards.Card card, GameObject cardObj, int pos){
+	protected virtual void ShowCard(lr_DeckOfCards.Card card, GameObject cardObj, int pos){
 		cardObj.name = card.ToString();
 
 		cardObj.transform.SetParent(handBase.transform);
@@ -65,7 +70,7 @@ public class BlackJackHand : MonoBehaviour {
 			
 		total.text = "Player: " + handVals;
 
-		if(handVals > 21){
+		if(handVals > 210){
 			GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>().PlayerBusted();
 		}
 	}

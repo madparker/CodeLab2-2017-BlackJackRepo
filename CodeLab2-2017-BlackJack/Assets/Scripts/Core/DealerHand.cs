@@ -31,14 +31,14 @@ public class DealerHand : BlackJackHand {
 
 				total.text = "Dealer: " + handVals;
 
-				BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
+				BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<lr_BlackJackManager>();
 
-				if(handVals > 21){
+				if(handVals > 210){
 					manager.DealerBusted();
 				} else if(!DealStay(handVals)){
 					Invoke("HitMe", 1);
 				} else {
-					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
+					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<lr_BlackJackHand>();
 
 					if(handVals < playerHand.handVals){
 						manager.PlayerWin();
