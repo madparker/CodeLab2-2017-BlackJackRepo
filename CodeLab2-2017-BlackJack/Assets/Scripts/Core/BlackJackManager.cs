@@ -26,6 +26,7 @@ public class BlackJackManager : MonoBehaviour {
 
 	public Text moneyText; //the ui text for diplaying money
 	public Text betText; //the ui text for displaying current bet
+	public Text betWarningText; //the ui text for displaying warnings for incorrect betting procedure
 
 
 	private static int money = 100; //the amount of money the player has left with which to bet
@@ -39,10 +40,9 @@ public class BlackJackManager : MonoBehaviour {
 	public void OnBet(){ //when the player hits the bet button with an amount entered into the input field
 		if(int.TryParse(playerBetInputField.text, out betAmount)){; //if the text they have entered is parsable into an int
 			if(betAmount > money){ //if the player bet more than they have
-				statusText.text = ("NOT ENOUGH $$"); //tell them the don't have enough
-				statusText.color = Color.red;
+				betWarningText.text = ("NOT ENOUGH $$"); //tell them the don't have enough
 			}else { //if they have enough to make the bet
-				statusText.text = (""); //clear status text in case they didn't have enough
+				betWarningText.text = (""); //clear status text in case they had warnings
 				money -= betAmount; //subtract amount bet from money
 				UpdateMoneyText(); //update our text to reflect new bet/money values
 				Debug.Log ("Player bet $" + betAmount);
@@ -62,17 +62,11 @@ public class BlackJackManager : MonoBehaviour {
 		Debug.Log ("Old bet was: " + oldBet);
 		if(int.TryParse(doubleDownInputField.text, out betAmount)){; //if the text they have entered is parsable into an int, set that as the value of the bet
 			if(betAmount > money){ //if the player bet more than they have
-				
-				Debug.Log ("Tried to bet: " + betAmount);
-				Debug.Log ("Not enough money for bet");
-				statusText.text = ("NOT ENOUGH $$"); //tell them the don't have enough
-				statusText.color = Color.red;
+				betWarningText.text = ("NOT ENOUGH $$"); //tell them the don't have enough
 			}else if(betAmount > oldBet){ //if the new bet amount is more than their original bat, tell them it's too high
-				
-				Debug.Log ("Tried to bet: " + betAmount);
-				statusText.text = ("BET TOO HIGH"); 
-				statusText.color = Color.red;
+				betWarningText.text = ("BET TOO HIGH"); 
 			}else{
+				betWarningText.text = (""); //clear status text in case they had warnings
 				money -= betAmount; //subtract the new amount bet from money
 				betAmount += oldBet; //add the old bet to the new bet to reflect the total amount bet
 				UpdateMoneyText(); //update our text to reflect new bet/money values
