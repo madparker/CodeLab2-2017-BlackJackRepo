@@ -36,7 +36,10 @@ public class BlackJackHand : MonoBehaviour {
 	public void HitMe(){
 		if(!stay){
 			lr_DeckOfCards.Card card = deck.DrawCard();
-			Debug.Log ("is being hit");
+//			Debug.Log ("is being hit");
+
+		
+
 
 			GameObject cardObj = Instantiate(Resources.Load("prefab/Card")) as GameObject;
 
@@ -45,6 +48,13 @@ public class BlackJackHand : MonoBehaviour {
 //			if (!(card is lr_DeckOfCards.SpecialCard)) {
 				
 				hand.Add (card);
+//			}
+
+//			if ((card as lr_DeckOfCards.SpecialCard).spcSuit == lr_DeckOfCards.SpecialCard.SpecialSuit.PLUSCARDS) {
+//				int timesToDraw = (card as lr_DeckOfCards.SpecialCard).GetSpecialCardHighValue ();
+//				for (int i = 0; i < timesToDraw; i++) {
+//					HitMe ();
+//				}
 //			}
 
 			ShowValue();
@@ -77,7 +87,7 @@ public class BlackJackHand : MonoBehaviour {
 
 	public int GetHandValue(){
 		BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
-
-		return manager.GetHandValue(hand);
+		GameObject gO = gameObject;
+		return manager.GetHandValue(hand, gO);
 	}
 }

@@ -10,7 +10,7 @@ public class lr_BlackJackManager : BlackJackManager {
 //		bJHand = GameObject.Find("Deck").GetComponent<lr_DeckOfCards>();
 	}
 	
-	public override int GetHandValue(List<lr_DeckOfCards.Card> hand){
+	public override int GetHandValue(List<lr_DeckOfCards.Card> hand, GameObject gameObj){
 		int handValue = 0;
 		int nrAces = 0;
 
@@ -22,11 +22,20 @@ public class lr_BlackJackManager : BlackJackManager {
 					handValue -= (handCard as lr_DeckOfCards.SpecialCard).GetSpecialCardHighValue ();
 				} else if ((handCard as lr_DeckOfCards.SpecialCard).spcSuit == lr_DeckOfCards.SpecialCard.SpecialSuit.MULTIPLY) {
 					handValue = handValue * (handCard as lr_DeckOfCards.SpecialCard).GetSpecialCardHighValue ();
-				} else {
-					int timesToDraw = (handCard as lr_DeckOfCards.SpecialCard).GetSpecialCardHighValue ();
-					for (int i = 0; i < timesToDraw; i++) {
-					}
-				}
+				} 
+
+				// cardraw makes everything crash!
+
+//				else {
+//					int timesToDraw = (handCard as lr_DeckOfCards.SpecialCard).GetSpecialCardHighValue ();
+//					for (int i = 0; i < timesToDraw; i++) {
+//						if (gameObj.name == "Player Hand Value") {
+//							gameObj.GetComponent<lr_BlackJackHand> ().HitMe ();
+//						} else {
+//							gameObj.GetComponent<lr_DealerHand> ().HitMe ();
+//						}
+//					}
+//				}
 				
 			} else {
 				// normal cards 
@@ -48,9 +57,7 @@ public class lr_BlackJackManager : BlackJackManager {
 				}
 			}
 		}
-
-
-
+			
 		return handValue;
 	}
 	

@@ -49,7 +49,7 @@ public class BlackJackManager : MonoBehaviour {
 		SceneManager.LoadScene(loadScene);
 	}
 
-	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
+	public virtual int GetHandValue(List<DeckOfCards.Card> hand, GameObject gameObj){
 		int handValue = 0;
 
 		foreach(DeckOfCards.Card handCard in hand){
