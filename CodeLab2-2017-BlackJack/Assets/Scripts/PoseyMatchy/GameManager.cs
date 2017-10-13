@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
+using UnityEngine.SceneManagement; 
 
 public class GameManager : MonoBehaviour {
 
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour {
 	public float speedUpTextLife;
 	public float endTime;
 	bool theEnd;
+	public GameObject endText;
 
 
 	void Awake () 
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour {
 		scoreDisplay = GameObject.Find ("Score").GetComponent<Text> ();
 		multiplierDisplay = GameObject.Find ("Multiplier").GetComponent<Text> ();
 		inARowDisplay = GameObject.Find ("In a Row").GetComponent<Text> ();
+		endText = GameObject.Find ("EndText");
 		for (int i = 0; i < bandMates.Length; i++) 
 		{
 			bandMates[i] = GameObject.Find("BandMate_" + i).GetComponent<Image>();
@@ -78,11 +81,14 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < bandMates.Length; i++) {
 		bandMates [i].sprite = currentPose;
 		}
-		playerInput ();
-		handleTimer ();
+		if (theEnd == false) {
+			playerInput ();
+			handleTimer ();
+		}
 		UIDisplay ();
 		handleMultiplier ();
 		SpeedUp ();
+		handleEnding ();
 	}
 
 	bool IsValidBag()
@@ -182,5 +188,24 @@ public class GameManager : MonoBehaviour {
 	void activateSpeedText()
 	{
 		GameObject.Find ("SpeedUp!").GetComponent<CoolText> ().wakeUp(speedUpTextLife);
+	}
+
+	void handleEnding ()
+	{
+		if (gameTimer < endTime) {
+			theEnd = true;
+		} else {
+			theEnd = false;
+		}
+
+		if (theEnd) {
+			endText.SetActive (true);
+			if (Input.GetKeyDown(KeyCode.R))
+			{
+				SceneManager.LoadScene (0);
+			}
+		} else {
+			endText.SetActive (false);
+		}
 	}
 }
