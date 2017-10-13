@@ -28,7 +28,7 @@ public class SentenceBlocks : MonoBehaviour {
 	string[] verbs = {
 		"navigates",
 		"ushers in",
-		"prevents",
+		"evades",
 		"destroys",
 		"questions",
 		"circumvents",
