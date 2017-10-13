@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
+	public bool cheatingMode;
 	public Sprite [] poses;
 	public Sprite good;
 	public Sprite bad;
@@ -81,6 +82,10 @@ public class GameManager : MonoBehaviour {
 
 	void Update () 
 	{
+		if (cheatingMode) 
+		{
+			player.sprite = choreographer.sprite;
+		}
 		gameTimer -= Time.deltaTime;
 		valueOfMatch = baseValue * multiplier;
 		if (Input.GetKeyDown (KeyCode.Space)) {
