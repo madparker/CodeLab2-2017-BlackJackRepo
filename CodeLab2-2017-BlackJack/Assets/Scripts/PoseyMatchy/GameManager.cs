@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
 	public Sprite [] poses;
+	public Sprite good;
+	public Sprite bad;
 	public static ShuffleBag<Sprite> poseBag; 
 	public Sprite currentPose;
 	public float currentTimer;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour {
 	Text scoreDisplay;
 	Text multiplierDisplay;
 	Text inARowDisplay;
+	Image goodBad;
 	public Image [] bandMates;
 	public Image choreographer; 
 	Image timeMeter;
@@ -36,8 +39,9 @@ public class GameManager : MonoBehaviour {
 	public float thirdSpeed;
 	public float speedUpTextLife;
 	public float endTime;
-	bool theEnd;
-	public GameObject endText;
+	bool theEnd = false;
+	GameObject endText;
+	GameObject scoreBoard;
 
 
 	void Awake () 
@@ -63,7 +67,9 @@ public class GameManager : MonoBehaviour {
 		scoreDisplay = GameObject.Find ("Score").GetComponent<Text> ();
 		multiplierDisplay = GameObject.Find ("Multiplier").GetComponent<Text> ();
 		inARowDisplay = GameObject.Find ("In a Row").GetComponent<Text> ();
+		goodBad = GameObject.Find ("GoodBad").GetComponent<Image> ();
 		endText = GameObject.Find ("EndText");
+		scoreBoard = GameObject.Find ("ScoreBoard");
 		for (int i = 0; i < bandMates.Length; i++) 
 		{
 			bandMates[i] = GameObject.Find("BandMate_" + i).GetComponent<Image>();
@@ -77,9 +83,16 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			GetNewPose ();
 		}
-		choreographer.sprite = currentPose;
-		for (int i = 0; i < bandMates.Length; i++) {
-		bandMates [i].sprite = currentPose;
+		if (currentPose != null) {
+			choreographer.sprite = currentPose;
+			for (int i = 0; i < bandMates.Length; i++) {
+				bandMates [i].sprite = currentPose;
+			}
+			if (player.sprite == choreographer.sprite) {
+				goodBad.sprite = good;
+			} else {
+				goodBad.sprite = bad;
+			}
 		}
 		if (theEnd == false) {
 			playerInput ();
@@ -200,12 +213,14 @@ public class GameManager : MonoBehaviour {
 
 		if (theEnd) {
 			endText.SetActive (true);
+			scoreBoard.SetActive (false);
 			if (Input.GetKeyDown(KeyCode.R))
 			{
 				SceneManager.LoadScene (0);
 			}
 		} else {
 			endText.SetActive (false);
+			scoreBoard.SetActive (true);
 		}
 	}
 }
