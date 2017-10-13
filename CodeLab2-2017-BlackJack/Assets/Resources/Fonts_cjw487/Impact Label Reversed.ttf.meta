@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: a02242f12b604e94cbbd92aa50ac0289
+timeCreated: 1507858344
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Impact Label Reversed
+  fontNames:
+  - Impact Label Reversed
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
