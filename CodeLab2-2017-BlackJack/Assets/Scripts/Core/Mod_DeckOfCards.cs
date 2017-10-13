@@ -142,7 +142,7 @@ public class Mod_DeckOfCards : MonoBehaviour {
 		//Tracks how many cards have been used
 		cardsUsed++;
 		remainingCards = deck.Count - cardsUsed;
-		print (nextCard.ToString());
+//		print (nextCard.ToString());
 
 		return nextCard;
 	}

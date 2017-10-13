@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Mod_DealerHand : Mod_PlayerHand {
 
@@ -9,7 +10,10 @@ public class Mod_DealerHand : Mod_PlayerHand {
 	bool reveal;
 
 	protected override void SetupHand(){
-		base.SetupHand();
+		deck = GameObject.Find("Deck").GetComponent<Mod_DeckOfCards>();
+		hand = new List<Mod_DeckOfCards.Card>();
+
+		HitMe();
 
 		//Need to make all cards Hidden
 
@@ -19,6 +23,7 @@ public class Mod_DealerHand : Mod_PlayerHand {
 		cardOne.GetComponentsInChildren<Image>()[1].enabled = false;
 
 		reveal = false;
+
 	}
 		
 //	protected override void ShowValue(){
@@ -52,9 +57,6 @@ public class Mod_DealerHand : Mod_PlayerHand {
 //		}
 //	}
 
-	protected virtual bool DealStay(int handVal){
-		return handVal >= 17;
-	}
 
 	public void RevealCard(){
 		reveal = true;
@@ -68,4 +70,15 @@ public class Mod_DealerHand : Mod_PlayerHand {
 
 //		ShowValue();
 	}
+
+
+	void Update(){
+		for (int i = 0; i < hand.Count; i++) {
+			print (hand [i].suit);
+		}
+
+		Debug.Log(Mod_GameManager.flopHand.Count);
+	}
+
+
 }
