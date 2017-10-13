@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
 	public float secondMulti;
 	public float thirdMulti;  
 	public float multiplier;
+	public float gameTimerMax;
+	public float gameTimer;
 	public int inARow;
 	float valueOfMatch;
 	public Image player;
@@ -26,10 +28,19 @@ public class GameManager : MonoBehaviour {
 	public Image [] bandMates;
 	public Image choreographer; 
 	Image timeMeter;
+	public float firstSpeedUp;
+	public float secondSpeedUp;
+	public float firstSpeed;
+	public float secondSpeed;
+	public float thirdSpeed;
+	public float speedUpTextLife;
+	public float endTime;
+	bool theEnd;
 
 
 	void Awake () 
 	{
+		maxTimer = firstSpeed;
 		if (!IsValidBag())  
 		{
 			poseBag = new ShuffleBag<Sprite> (); 
@@ -38,6 +49,8 @@ public class GameManager : MonoBehaviour {
 				poseBag.Add (poses [i]);
 			}
 		}
+		gameTimerMax = GameObject.Find ("MusicMan").GetComponent<AudioSource> ().clip.length;
+		gameTimer = GameObject.Find ("MusicMan").GetComponent<AudioSource> ().clip.length;
 	}
 		
 	void Start () 
@@ -56,6 +69,7 @@ public class GameManager : MonoBehaviour {
 
 	void Update () 
 	{
+		gameTimer -= Time.deltaTime;
 		valueOfMatch = baseValue * multiplier;
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			GetNewPose ();
@@ -68,6 +82,7 @@ public class GameManager : MonoBehaviour {
 		handleTimer ();
 		UIDisplay ();
 		handleMultiplier ();
+		SpeedUp ();
 	}
 
 	bool IsValidBag()
@@ -141,5 +156,31 @@ public class GameManager : MonoBehaviour {
 		{
 			multiplier = 4;
 		}
+	}
+
+	void SpeedUp ()
+	{
+		if (gameTimer > firstSpeedUp) {
+			maxTimer = firstSpeed;
+		} else if (gameTimer <= firstSpeedUp && gameTimer > secondSpeedUp) {
+			maxTimer = secondSpeed;
+		} else {
+			maxTimer = thirdSpeed;
+		}
+
+		if (gameTimer <= firstSpeedUp + 1 && gameTimer > firstSpeedUp) 
+		{
+			activateSpeedText ();
+		}
+
+		if (gameTimer <= secondSpeedUp + 1 && gameTimer > secondSpeedUp) 
+		{
+			activateSpeedText ();
+		}
+	}
+
+	void activateSpeedText()
+	{
+		GameObject.Find ("SpeedUp!").GetComponent<CoolText> ().wakeUp(speedUpTextLife);
 	}
 }
