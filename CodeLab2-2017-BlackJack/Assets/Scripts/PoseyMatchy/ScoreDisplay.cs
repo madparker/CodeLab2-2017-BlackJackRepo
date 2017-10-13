@@ -17,7 +17,22 @@ public class ScoreDisplay : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		GetComponent<Text> ().text = "Your Score: " + gm.score;
+		if (gameObject.name == "Your Score") 
+		{
+			GetComponent<Text> ().text = "Your Score: " + gm.score;
+		}
+		if (gameObject.name == "Hits") 
+		{
+			GetComponent<Text> ().text = "Hit: " + gm.hits;
+		}
+		if (gameObject.name == "Misses") 
+		{
+			GetComponent<Text> ().text = "Missed: " + gm.misses;
+		}
+		if (gameObject.name == "LongestStreak") 
+		{
+			GetComponent<Text> ().text = "Longest Streak: " + gm.streak;
+		}
 		
 	}
 }

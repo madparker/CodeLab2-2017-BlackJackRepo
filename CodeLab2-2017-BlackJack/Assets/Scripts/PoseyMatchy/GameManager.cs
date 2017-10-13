@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour {
 	public float multiplier;
 	public float gameTimerMax;
 	public float gameTimer;
+	public float hits;
+	public float misses;
+	public float streak;
 	public int inARow;
 	float valueOfMatch;
 	public Image player;
@@ -148,8 +151,10 @@ public class GameManager : MonoBehaviour {
 			if (player.sprite == choreographer.sprite) {
 				score += valueOfMatch;
 				inARow++;
+				hits++;
 			} else {
 				inARow = 0;
+				misses++;
 			}
 			GetNewPose ();
 			currentTimer = maxTimer;
@@ -174,6 +179,11 @@ public class GameManager : MonoBehaviour {
 		} else if (inARow >= thirdMulti) 
 		{
 			multiplier = 4;
+		}
+
+		if (inARow > streak) 
+		{
+			streak = inARow;
 		}
 	}
 
