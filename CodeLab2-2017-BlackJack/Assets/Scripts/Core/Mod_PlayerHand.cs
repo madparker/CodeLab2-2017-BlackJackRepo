@@ -39,6 +39,8 @@ public class Mod_PlayerHand: MonoBehaviour {
 
 		Mod_DeckOfCards.Card card = deck.DrawCard();
 
+		// If there is a card to draw, draw the card and put the card in player's hand 
+
 		if (card != null) {
 
 			GameObject cardObj = Instantiate (Resources.Load ("prefab/Card")) as GameObject;
@@ -76,7 +78,6 @@ public class Mod_PlayerHand: MonoBehaviour {
 		Mod_DeckOfCards.Card card = deck.DrawCard();
 
 		if (card != null) {
-			print (Mod_GameManager.flopHand.Count);
 
 			GameObject cardObj = Instantiate (Resources.Load ("prefab/Card")) as GameObject;
 
@@ -97,6 +98,8 @@ public class Mod_PlayerHand: MonoBehaviour {
 		
 
 	public void FlopSuitCheck(){
+
+		//Checks the suit of the last card drawn for flop, if suit matches a card in the hand, do nothing and return
 		for (int i = 0; i < hand.Count; i++) {
 			if (Mod_GameManager.flopHand.Count > 0) {
 				if (Mod_GameManager.flopHand [Mod_GameManager.flopHand.Count - 1].suit == hand[i].suit) {
@@ -105,7 +108,7 @@ public class Mod_PlayerHand: MonoBehaviour {
 			}
 				
 		}
-
+		//...Otherwise draw a card 
 		HitMe ();
 	
 	}

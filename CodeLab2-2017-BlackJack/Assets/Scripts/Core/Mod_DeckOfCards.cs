@@ -85,51 +85,17 @@ public class Mod_DeckOfCards : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-//		DrawFaceCards ();
 		SetupDeck ();
 
-
+		// Sets remaining cards to amount of cards in the deck at the start
 		remainingCards = deck.Count;
 
 
 	}
 
-	protected virtual bool IsValidDeck(){
-		return deck != null;
-
-	}
-
-
-	public void AddCardsToDeck(){
-		// Uses the amount of decks set in deckNum to add cards to the game
-
-		for (int i = 0; i < deckNum; i++) {
-			foreach (Card.Suit suit in Card.Suit.GetValues(typeof(Card.Suit))) {
-				foreach (Card.Type type in Card.Type.GetValues(typeof(Card.Type))) {
-					Card card = new Card (type, suit);
-					deck.Add (card);
-
-				}
-			}
-		}
-
-		RemoveSelectedFaceCardsFromDeck ();
-
-	}
-
-	void RemoveSelectedFaceCardsFromDeck(){
-		for (int i = 0; i < startFaces.Count; i++) {
-			for (int d = 0; d < deck.Count; d++) {
-				if (startFaces [i].cardNum == deck [d].cardNum && startFaces [i].suit == deck [d].suit) {
-					deck.Remove (deck [d]);
-				}
-			}
-
-		}
-	}
-
+	//Draw a card from the deck
 	public virtual Card DrawCard(){
-		//When card count falls below a minimum, the decks are 
+		//When card count falls below a minimum, forces player to guess.
 		if (remainingCards <= 0) {
 			
 //			deck = null;
@@ -147,7 +113,6 @@ public class Mod_DeckOfCards : MonoBehaviour {
 		//Tracks how many cards have been used
 		cardsUsed++;
 		remainingCards = deck.Count - cardsUsed;
-//		print (nextCard.ToString());
 
 		return nextCard;
 	}
@@ -167,14 +132,21 @@ public class Mod_DeckOfCards : MonoBehaviour {
 
 	void SetupDeck(){
 
+		//Setup up a new deck
 		deck = new ShuffleBag<Card> ();
+
+		// Makes sure the deck is made up of Face cards only
 		deck = SeparateFaceCards ();
+
+		//No cards used it, this is incremented in the DrawCard() method
 		cardsUsed = 0;
 
 	
 	}
 
 	ShuffleBag<Card> SeparateFaceCards(){
+
+		//Makes a shufflebag of face cards and returns it
 		 
 		faceCards = new ShuffleBag<Card> ();
 		for (int i = 0; i < deckNum; i++) {
@@ -187,20 +159,6 @@ public class Mod_DeckOfCards : MonoBehaviour {
 		}
 
 		return faceCards;
-	}
-
-	public List<Card> DrawFaceCards(){
-
-		startFaces = new List<Card> ();
-
-		faceCards =  SeparateFaceCards();
-
-		for (int i = 0; i < 3; i++) {
-			startFaces.Add (faceCards.Next ());
-		}
-
-		return startFaces;
-
 	}
 		
 
