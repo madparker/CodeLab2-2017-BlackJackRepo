@@ -10,12 +10,13 @@ public class BlackJackHand : MonoBehaviour {
 	public float xOffset; //X position of the first card
 	public float yOffset; //y position of player cards
 	public float xBoard; //x postion of the left board 
-	public GameObject handBase; //put the cards under this gameobject  / child gameobject
+	public GameObject handBase; //put the cards under this gameobject/child gameobject
 	public int handVals; //the value of the player hand
 
 	protected DeckOfCards deck;
 	protected List<DeckOfCards.Card> hand;
 	bool stay = false;
+	public int MoveTimes = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -56,16 +57,20 @@ public class BlackJackHand : MonoBehaviour {
 			DeckOfCards.Card card = deck.DrawCard();
 
 			GameObject cardObj = Instantiate(Resources.Load("prefab/Card")) as GameObject;
-			//card position depends on the its order
-			ShowCard(card, cardObj, hand.Count);
 			//add this card to hand
 			hand.Add(card);
+			//card position depends on the its order
+			if(hand.Count < 2 || hand.Count % 2 == 0){
+				
+				ShowCard (card, cardObj, hand.Count - MoveTimes);
+			} 
+			else {
+				ShowCard (card, cardObj, hand.Count - MoveTimes);
+				MoveCard ();
+				MoveTimes ++;
+			}
 
 			ShowValue();
-
-			if (hand.Count > 4) {
-				MoveCard ();
-			}
 
 		}
 	}
@@ -83,6 +88,7 @@ public class BlackJackHand : MonoBehaviour {
 			new Vector2(
 				xOffset + pos * 110, 
 				yOffset);
+		Debug.Log (cardObj.GetComponent<RectTransform> ().anchoredPosition.x);
 
 		//display card name and suit on the screen
 		cardObj.GetComponentInChildren<Text>().text = deck.GetNumberString(card);
