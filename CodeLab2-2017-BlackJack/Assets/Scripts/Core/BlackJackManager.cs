@@ -9,29 +9,63 @@ public class BlackJackManager : MonoBehaviour {
 	public Text statusText;
 	public GameObject tryAgain;
 	public string loadScene;
+	public int BlackJackScore = 0;
+	public int PlayerWinScore = 0;
+	public int DealerWinScore = 0;
+	public GameObject PlayerScoreText;
+	public GameObject DealerScoreText;
+	public GameObject BlackJackText;
 
 	//Hide Hit and Stay button when player busted
+
+	void Start(){
+
+		PlayerWinScore = PlayerPrefs.GetInt("PlayerWinScore");
+		DealerWinScore = PlayerPrefs.GetInt("DealerWinScore");
+		BlackJackScore = PlayerPrefs.GetInt("BlackJackScore");
+		PlayerScoreText.GetComponent<Text> ().text = "SCORE: " + PlayerWinScore;
+		DealerScoreText.GetComponent<Text> ().text = "SCORE: " + DealerWinScore;
+		BlackJackText.GetComponent<Text> ().text = "BLACKJACK: " + BlackJackScore;
+
+	
+	}
 	public void PlayerBusted(){
 		HidePlayerButtons();
 		GameOverText("YOU BUST", Color.red);
+		DealerWinScore++;
+		DealerScoreText.GetComponent<Text> ().text = "SCORE: " + DealerWinScore;
+		PlayerPrefs.SetInt("DealerWinScore", DealerWinScore);
 	}
 
 	public void DealerBusted(){
 		GameOverText("DEALER BUSTS!", Color.green);
+		PlayerWinScore++;
+		PlayerScoreText.GetComponent<Text> ().text = "SCORE: " + PlayerWinScore;
+		PlayerPrefs.SetInt("PlayerWinScore", PlayerWinScore);
 	}
 		
 	public void PlayerWin(){
 		GameOverText("YOU WIN!", Color.green);
+		PlayerWinScore++;
+		PlayerScoreText.GetComponent<Text> ().text = "SCORE: " + PlayerWinScore;
+		PlayerPrefs.SetInt("PlayerWinScore", PlayerWinScore);
 	}
 		
 	public void PlayerLose(){
 		GameOverText("YOU LOSE.", Color.red);
+		DealerWinScore++;
+		DealerScoreText.GetComponent<Text> ().text = "SCORE: " + DealerWinScore;
+		PlayerPrefs.SetInt("DealerWinScore", DealerWinScore);
 	}
 
 
 	public void BlackJack(){
 		GameOverText("Black Jack!", Color.green);
 		HidePlayerButtons();
+		BlackJackScore++;
+		BlackJackText.GetComponent<Text> ().text = "BLACKJACK: " + BlackJackScore;
+		PlayerPrefs.SetInt("BlackJackScore", BlackJackScore);
+
 	}
 
 	public void GameOverText(string str, Color color){
@@ -49,6 +83,7 @@ public class BlackJackManager : MonoBehaviour {
 
 	public void TryAgain(){
 		SceneManager.LoadScene(loadScene);
+
 	}
 
 	//Calculate the value of the cards on the hand

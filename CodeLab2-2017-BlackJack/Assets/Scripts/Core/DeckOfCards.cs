@@ -111,6 +111,8 @@ public class DeckOfCards : MonoBehaviour {
 			deck.Clear ();
 			AddCardsToDeck ();
 		}
+		//nextCard = new Card (Card.Type.A, Card.Suit.CLUBS);
+
 		return nextCard;
 	}
 

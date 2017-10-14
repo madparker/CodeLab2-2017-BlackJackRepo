@@ -87,13 +87,15 @@ public class DealerHand : BlackJackHand {
 	public void RevealCard(){
 		
 		reveal = true;
+		MoveTimes = 0;
 
 		GameObject cardOne = transform.GetChild(0).gameObject;
 
 		cardOne.GetComponentsInChildren<Image>()[0].sprite = null;
 		cardOne.GetComponentsInChildren<Image>()[1].enabled = true;
 
-		ShowCard(hand[0], cardOne, 0);
+		ShowCard(hand[0], cardOne, 1);
+		Debug.Log (hand.Count);
 
 		ShowValue();
 	}
